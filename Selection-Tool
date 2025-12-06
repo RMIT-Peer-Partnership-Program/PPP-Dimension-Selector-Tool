@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PPP Dimension Selector Self-check</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+      margin: 0;
+      padding: 0 16px 32px;
+      max-width: 960px;
+      margin-inline: auto;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      background-color: #00205b;
+      color: #ffffff;
+      padding: 12px 16px;
+      font-size: 1.4rem;
+      margin: 16px -16px 16px -16px;
+    }
+    h2 {
+      color: #c10404;
+      margin-top: 24px;
+    }
+    .intro {
+      background-color: #f3f3f3;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+    }
+    ul {
+      margin-top: 4px;
+      padding-left: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      background-color: #ffffff;
+    }
+    th, td {
+      border-bottom: 1px solid #e0e0e0;
+      padding: 8px;
+      vertical-align: top;
+    }
+    th {
+      background-color: #f7f7f7;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    th:first-child {
+      text-align: left;
+      width: 55%;
+    }
+    .dim-title {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .scale-cell {
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .scale-label {
+      font-size: 0.75rem;
+      color: #555;
+      margin-top: 2px;
+      display: block;
+    }
+    .calculate-btn {
+      margin-top: 16px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      border: none;
+      background-color: #c10404;
+      color: #ffffff;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    .calculate-btn:hover {
+      background-color: #a00303;
+    }
+    .results {
+      margin-top: 24px;
+      padding: 12px 16px;
+      background-color: #ffffff;
+      border-left: 4px solid #00205b;
+    }
+    .results h2 {
+      margin-top: 0;
+    }
+    .results ol {
+      padding-left: 20px;
+    }
+    .results pre {
+      background-color: #f7f7f7;
+      padding: 8px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+    }
+    .note {
+      font-size: 0.85rem;
+      color: #555;
+      margin-top: 8px;
+    }
+    .error {
+      color: #c10404;
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+    @media (max-width: 600px) {
+      th:first-child {
+        width: 50%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1>PPP Dimension Selector Self-check</h1>
+
+<div class="intro">
+  <p>
+    Use this quick self-check to identify which PPP dimensions might be most useful to focus on.
+    Rate each statement on a scale from 1–5:
+  </p>
+  <ul>
+    <li>1 = Strongly disagree</li>
+    <li>2 = Disagree</li>
+    <li>3 = Neutral</li>
+    <li>4 = Agree</li>
+    <li>5 = Strongly agree</li>
+  </ul>
+  <p class="note">
+    Lower scores often indicate areas where additional focus may be helpful. This tool is for your own reflection and is
+    not stored or submitted.
+  </p>
+</div>
+
+<form id="dimension-form">
+
+  <table>
+    <thead>
+      <tr>
+        <th>Dimension &amp; statement</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>5</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td>
+          <span class="dim-title">1. Fostering active and inclusive learning</span>
+          I use strategies that actively engage and include all students.
+        </td>
+        <td class="scale-cell"><input type="radio" name="q1" value="1"></td>
+        <td class="scale-cell"><input type="radio" name="q1" value="2"></td>
+        <td class="scale-cell"><input type="radio" name="q1" value="3"></td>
+        <td class="scale-cell"><input type="radio" name="q1" value="4"></td>
+        <td class="scale-cell"><input type="radio" name="q1" value="5"></td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="dim-title">2. Connecting to learners’ prior knowledge and experience</span>
+          I deliberately link new concepts to what students already know or have experienced.
+        </td>
+        <td class="scale-cell"><input type="radio" name="q2" value="1"></td>
+        <td class="scale-cell"><input type="radio" name="q2" value="2"></td>
+        <td class="scale-cell"><input type="radio" name="q2" value="3"></td>
+        <td class="scale-cell"><input type="radio" name="q2" value="4"></td>
+        <td class="scale-cell"><input type="radio" name="q2" value="5"></td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="dim-title">3. Designing for Indigenous perspectives, diversity, equity and belonging</span>
+          I embed diverse perspectives and promote a sense of belonging in my teaching.
+        </td>
+        <td class="scale-cell"><input type="radio" name="q3" value="1"></td>
+        <td class="scale-cell"><input type="radio" name="q3" value="2"></td>
+        <td class="scale-cell"><input type="radio" name="q3" value="3"></td>
+        <td class="scale-cell"><input type="radio" name="q3" value="4"></td>
+        <td class="scale-cell"><input type="radio" name="q3" value="5"></td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="dim-title">4. Developing deep conceptual understanding and critical thinking</span>
+          I encourage students to deeply understand concepts and think critically.
+        </td>
+        <td class="scale-cell"><input type="radio" name="q4" value="1"></td>
+        <td class="scale-cell"><input type="radio" name="q4" value="2"></td>
+        <td class="scale-cell"><input type="radio" name="q4" value="3"></td>
+        <td class="scale-cell"><input type="radio" name="q4" value="4"></td>
+        <td class="scale-cell"><input type="radio" name="q4" value="5"></td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="dim-title">5. Making learning outcomes and pathways transparent</span>
+          I make learning goals and possible future pathways clear to students.
+        </td>
+        <td class="scale-cell"><input type="radio" name="q5" value="1"></td>
+        <td class="scale-cell"><input type="radio" name="q5" value="2"></td>
+        <td class="scale-cell"><input type="radio" name="q5" value="3"></td>
+        <td class="scale-cell"><input type="radio" name="q5" value="4"></td>
+        <td class="scale-cell"><input type="radio" name="q5" value="5"></td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="dim-title">6. Bridging theory, practice and interdisciplinary knowledge</span>
+          I connect theory to practice and highlight relevant interdisciplinary links.
+        </td>
+        <td class="scale-cell"><input type="radio" name="q6" value="1"></td>
+        <td class="scale-cell"><input type="radio" name="q6" value="2"></td>
+        <td class="scale-cell"><input type="radio" name="q6" value="3"></td>
+        <td class="scale-cell"><input type="radio" name="q6" value="4"></td>
+        <td class="scale-cell"><input type="radio" name="q6" value="5"></td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="dim-title">7. Harnessing digital, physical and hybrid environments</span>
+          I make purposeful use of digital, physical and hybrid learning environments.
+        </td>
+        <td class="scale-cell"><input type="radio" name="q7" value="1"></td>
+        <td class="scale-cell"><input type="radio" name="q7" value="2"></td>
+        <td class="scale-cell"><input type="radio" name="q7" value="3"></td>
+        <td class="scale-cell"><input type="radio" name="q7" value="4"></td>
+        <td class="scale-cell"><input type="radio" name="q7" value="5"></td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="dim-title">8. Structuring and communicating learning clearly</span>
+          I organise content logically and communicate expectations clearly.
+        </td>
+        <td class="scale-cell"><input type="radio" name="q8" value="1"></td>
+        <td class="scale-cell"><input type="radio" name="q8" value="2"></td>
+        <td class="scale-cell"><input type="radio" name="q8" value="3"></td>
+        <td class="scale-cell"><input type="radio" name="q8" value="4"></td>
+        <td class="scale-cell"><input type="radio" name="q8" value="5"></td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="dim-title">9. Embedding feedback loops and assessment for learning</span>
+          I use feedback and assessment primarily to support ongoing learning.
+        </td>
+        <td class="scale-cell"><input type="radio" name="q9" value="1"></td>
+        <td class="scale-cell"><input type="radio" name="q9" value="2"></td>
+        <td class="scale-cell"><input type="radio" name="q9" value="3"></td>
+        <td class="scale-cell"><input type="radio" name="q9" value="4"></td>
+        <td class="scale-cell"><input type="radio" name="q9" value="5"></td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="dim-title">10. Cultivating creativity, wellbeing and lifelong learning</span>
+          I foster creativity, wellbeing and habits that support lifelong learning.
+        </td>
+        <td class="scale-cell"><input type="radio" name="q10" value="1"></td>
+        <td class="scale-cell"><input type="radio" name="q10" value="2"></td>
+        <td class="scale-cell"><input type="radio" name="q10" value="3"></td>
+        <td class="scale-cell"><input type="radio" name="q10" value="4"></td>
+        <td class="scale-cell"><input type="radio" name="q10" value="5"></td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="dim-title">11. Developing metacognitive and self-regulatory learning</span>
+          I help students reflect on their learning and regulate their study strategies.
+        </td>
+        <td class="scale-cell"><input type="radio" name="q11" value="1"></td>
+        <td class="scale-cell"><input type="radio" name="q11" value="2"></td>
+        <td class="scale-cell"><input type="radio" name="q11" value="3"></td>
+        <td class="scale-cell"><input type="radio" name="q11" value="4"></td>
+        <td class="scale-cell"><input type="radio" name="q11" value="5"></td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="dim-title">12. Integrating digital and AI literacy for learning</span>
+          I incorporate digital and AI literacy in ways that support students&rsquo; learning.
+        </td>
+        <td class="scale-cell"><input type="radio" name="q12" value="1"></td>
+        <td class="scale-cell"><input type="radio" name="q12" value="2"></td>
+        <td class="scale-cell"><input type="radio" name="q12" value="3"></td>
+        <td class="scale-cell"><input type="radio" name="q12" value="4"></td>
+        <td class="scale-cell"><input type="radio" name="q12" value="5"></td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <button type="button" class="calculate-btn" onclick="calculatePriorities()">
+    Calculate priorities
+  </button>
+  <div id="error" class="error" aria-live="polite"></div>
+</form>
+
+<div id="results" class="results" style="display:none;">
+  <h2>Your PPP dimension priorities</h2>
+  <p>
+    Dimensions are shown from <strong>highest priority (lowest rating)</strong> to lowest priority.
+    You might choose one dimension for each PPP cycle, or focus on a single area across the year.
+  </p>
+  <ol id="ranked-list"></ol>
+
+  <h3>Copy-and-paste summary</h3>
+  <p class="note">
+    You can copy the text below into a Word document or your PPP planning form.
+  </p>
+  <pre id="summary-text"></pre>
+</div>
+
+<script>
+  const dimensions = [
+    { id: 1, name: "Fostering active and inclusive learning" },
+    { id: 2, name: "Connecting to learners’ prior knowledge and experience" },
+    { id: 3, name: "Designing for Indigenous perspectives, diversity, equity and belonging" },
+    { id: 4, name: "Developing deep conceptual understanding and critical thinking" },
+    { id: 5, name: "Making learning outcomes and pathways transparent" },
+    { id: 6, name: "Bridging theory, practice and interdisciplinary knowledge" },
+    { id: 7, name: "Harnessing digital, physical and hybrid environments" },
+    { id: 8, name: "Structuring and communicating learning clearly" },
+    { id: 9, name: "Embedding feedback loops and assessment for learning" },
+    { id: 10, name: "Cultivating creativity, wellbeing and lifelong learning" },
+    { id: 11, name: "Developing metacognitive and self-regulatory learning" },
+    { id: 12, name: "Integrating digital and AI literacy for learning" }
+  ];
+
+  function calculatePriorities() {
+    const scores = [];
+    const errorDiv = document.getElementById("error");
+    errorDiv.textContent = "";
+
+    for (let i = 1; i <= 12; i++) {
+      const radios = document.querySelectorAll('input[name="q' + i + '"]');
+      let value = null;
+      radios.forEach(r => {
+        if (r.checked) value = parseInt(r.value, 10);
+      });
+
+      if (value === null) {
+        errorDiv.textContent = "Please rate all 12 dimensions before calculating.";
+        document.getElementById("results").style.display = "none";
+        return;
+      }
+
+      scores.push({ id: i, name: dimensions[i - 1].name, score: value });
+    }
+
+    // sort by ascending score (lowest rating = highest priority)
+    scores.sort((a, b) => a.score - b.score);
+
+    const list = document.getElementById("ranked-list");
+    list.innerHTML = "";
+    scores.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item.name + " (rating: " + item.score + ")";
+      list.appendChild(li);
+    });
+
+    let summary = "PPP dimension priorities (from highest to lowest):\n\n";
+    scores.forEach((item, index) => {
+      summary += (index + 1) + ". " + item.name + " – rating " + item.score + "\n";
+    });
+    summary += "\nTop 1–3 dimensions to consider for your PPP focus:\n";
+    summary += "1. " + scores[0].name + "\n";
+    summary += "2. " + scores[1].name + "\n";
+    summary += "3. " + scores[2].name + "\n";
+
+    document.getElementById("summary-text").textContent = summary;
+    document.getElementById("results").style.display = "block";
+  }
+</script>
+
+</body>
+</html>
