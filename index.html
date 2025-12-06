@@ -1,617 +1,682 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>PPP Dimension Selector Self‑check</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0 0 40px 0;
-            background-color: #ffffff;
-            color: #000000;
-        }
-        .banner {
-            background-color: #00205b;
-            color: #ffffff;
-            padding: 12px 16px;
-            font-size: 1.4em;
-            font-weight: bold;
-        }
-        .container {
-            max-width: 1040px;
-            margin: 0 auto;
-            padding: 16px;
-        }
-        h2 {
-            color: #c10404;
-            margin-top: 24px;
-        }
-        p {
-            line-height: 1.5;
-        }
-        ul {
-            line-height: 1.5;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 12px;
-            font-size: 0.95em;
-        }
-        th, td {
-            border: 1px solid #e0e0e0;
-            padding: 6px 8px;
-            vertical-align: top;
-        }
-        th {
-            background-color: #f3f3f3;
-            text-align: center;
-        }
-        td.statement {
-            width: 80%;
-        }
-        .scale-label {
-            font-size: 0.9em;
-        }
-        .btn {
-            display: inline-block;
-            margin-top: 16px;
-            padding: 8px 18px;
-            background-color: #c10404;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            font-size: 0.95em;
-            cursor: pointer;
-        }
-        .btn:hover {
-            background-color: #a50303;
-        }
-        .results-section {
-            margin-top: 32px;
-            padding-top: 8px;
-            border-top: 2px solid #f0f0f0;
-        }
-        .dim-result {
-            margin-bottom: 20px;
-        }
-        .dim-result h3 {
-            margin-bottom: 4px;
-            color: #00205b;
-        }
-        .dim-score {
-            font-size: 0.9em;
-            color: #555555;
-        }
-        textarea {
-            width: 100%;
-            min-height: 160px;
-            font-family: Consolas, "Courier New", monospace;
-            font-size: 0.9em;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        .help-strip {
-            margin-top: 24px;
-            padding: 8px 12px;
-            background-color: #f7f7f7;
-            font-size: 0.9em;
-        }
-        .help-strip a {
-            color: #c71f23;
-        }
-        @media (max-width: 640px) {
-            td.statement {
-                width: 100%;
-            }
-            table, thead, tbody, th, td, tr {
-                font-size: 0.9em;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>PPP Dimension Selector Self-check</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0 0 40px 0;
+      line-height: 1.5;
+      color: #000;
+    }
+
+    .banner {
+      background-color: #00205b;
+      color: #ffffff;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .intro-box {
+      background-color: #f3f3f3;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      border-left: 4px solid #c10404;
+    }
+
+    h1, h2, h3, h4 {
+      color: #c10404;
+      margin-top: 24px;
+    }
+
+    h1 {
+      font-size: 1.5em;
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      font-size: 0.95em;
+    }
+
+    th, td {
+      border: 1px solid #d0d0d0;
+      padding: 8px;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #f3f3f3;
+      text-align: center;
+    }
+
+    td.statement {
+      width: 70%;
+    }
+
+    td.scale-cell {
+      text-align: center;
+      width: 6%;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 8px 18px;
+      background-color: #c10404;
+      color: #ffffff;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.95em;
+      border: none;
+      cursor: pointer;
+      margin: 8px 0 16px;
+    }
+
+    .btn-primary:hover {
+      background-color: #a10303;
+    }
+
+    .results {
+      margin-top: 24px;
+      padding-top: 8px;
+      border-top: 2px solid #e0e0e0;
+    }
+
+    .dimension-card {
+      border: 1px solid #d0d0d0;
+      border-radius: 4px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      background-color: #ffffff;
+    }
+
+    .dimension-card h4 {
+      margin: 0 0 6px 0;
+      color: #00205b;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 180px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9em;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    .need-help {
+      margin-top: 24px;
+      padding: 10px 16px;
+      background-color: #f7f7f7;
+      border-top: 1px solid #e0e0e0;
+      font-size: 0.95em;
+    }
+
+    .need-help a {
+      color: #c71f23;
+      text-decoration: none;
+    }
+
+    .need-help a:hover {
+      text-decoration: underline;
+    }
+
+    .note {
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    .error {
+      color: #c10404;
+      font-size: 0.95em;
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 700px) {
+      td.statement {
+        width: auto;
+      }
+      th, td {
+        font-size: 0.85em;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="banner">PPP Dimension Selector Self‑check</div>
+  <div class="banner">PPP Dimension Selector Self-check</div>
 
-<div class="container">
-    <p>
-        Use this quick self‑check to identify which PPP dimensions might be most useful to focus on.
-        Rate each statement on a scale from 1–5:
-    </p>
-    <ul>
-        <li>1 = Strongly disagree</li>
-        <li>2 = Disagree</li>
-        <li>3 = Neutral</li>
-        <li>4 = Agree</li>
-        <li>5 = Strongly agree</li>
-    </ul>
-    <p class="scale-label">
-        Lower scores often indicate areas where additional focus may be helpful.
-        This tool is for your own reflection and is not stored or submitted.
-    </p>
+  <div class="container">
+    <div class="intro-box">
+      <h1>Identify which PPP dimensions may be most useful to focus on</h1>
+      <p>Use this quick self-check to reflect on how strongly each of the PPP dimensions currently shows up in your teaching. It should take around <strong>5–7 minutes</strong>. Rate each statement on a scale from <strong>1–5</strong>:</p>
+      <ul>
+        <li><strong>1</strong> = Strongly disagree</li>
+        <li><strong>2</strong> = Disagree</li>
+        <li><strong>3</strong> = Neutral / unsure</li>
+        <li><strong>4</strong> = Agree</li>
+        <li><strong>5</strong> = Strongly agree</li>
+      </ul>
+      <p class="note">Some items are phrased positively and some negatively. The tool automatically adjusts the scoring so that <strong>lower overall scores still indicate more room for growth</strong>. This is for your own reflection only &ndash; responses are not stored or submitted.</p>
+    </div>
 
-    <table id="question-table">
+    <h2>Rate each statement</h2>
+    <p>Read each statement and choose the rating that best reflects your typical practice. Try to respond based on what usually happens, not on what you intend to do.</p>
+
+    <div id="error-message" class="error" style="display:none;"></div>
+
+    <form id="quiz-form">
+      <table>
         <thead>
-        <tr>
-            <th>Statement</th>
+          <tr>
+            <th style="width:70%;">Statement</th>
             <th>1</th>
             <th>2</th>
             <th>3</th>
             <th>4</th>
             <th>5</th>
-        </tr>
+          </tr>
         </thead>
-        <tbody>
-        <!-- Rows are injected by JavaScript -->
+        <tbody id="question-rows">
+          <!-- Rows inserted by JavaScript -->
         </tbody>
-    </table>
+      </table>
+    </form>
 
-    <button class="btn" onclick="calculatePriorities()">Calculate priorities</button>
+    <button id="calculate-btn" class="btn-primary" type="button">Calculate priorities</button>
 
-    <div id="results" class="results-section" style="display:none;">
-        <h2>Your PPP dimension priorities</h2>
-        <p>
-            Dimensions are shown from <strong>highest priority (lowest rating)</strong> to lowest priority.
-            You might choose one dimension for each PPP cycle, or focus on a single area across the year.
-        </p>
+    <div id="results-section" class="results" style="display:none;">
+      <h2>Your PPP dimension priorities</h2>
+      <p>Dimensions are shown from <strong>highest priority (lowest rating)</strong> to lowest priority. You might choose one dimension for each PPP cycle, or focus on a single area across the year.</p>
+      <ol id="dimension-ranking"></ol>
 
-        <div id="top-dimensions"></div>
+      <h3>Suggested focus areas for your top three dimensions</h3>
+      <p class="note">These short descriptions are starting points only. You can refine your focus with your peer and the PPP resources.</p>
+      <div id="top-three"></div>
 
-        <h3>Full ranking</h3>
-        <div id="all-dimensions"></div>
-
-        <h3>Copy‑and‑paste summary</h3>
-        <p style="font-size:0.9em;">
-            You can copy the text below into a Word document or your PPP planning form.
-        </p>
-        <textarea id="summary-text" readonly></textarea>
+      <h3>Copy-and-paste summary</h3>
+      <p class="note">You can copy the text below into a Word document or your PPP planning form.</p>
+      <textarea id="summary-text" readonly></textarea>
     </div>
 
-    <div class="help-strip">
-        <em>Need help?</em> Contact the PPP Team –
-        <a href="mailto:ppp@rmit.edu.au?subject=PPP%20Enquiry">ppp@rmit.edu.au</a>
+    <div class="need-help">
+      <p><em>Need help?</em> Contact the PPP Team &ndash;
+        <a href="mailto:ppp@rmit.edu.au?subject=PPP%20Dimension%20Selector%20query" target="_blank" rel="noopener">
+          ppp@rmit.edu.au
+        </a>
+      </p>
     </div>
-</div>
+  </div>
 
-<script>
-    // ---- Dimension metadata (names + interpretation) ----
+  <script>
+    // -------------------------
+    // Dimension metadata
+    // -------------------------
     const dimensions = [
-        {
-            id: 'd1',
-            name: 'Fostering active and inclusive engagement',
-            shortLabel: 'Active & inclusive engagement',
-            interpretation: 'Lower scores here suggest students may be spending more time listening than actively working with ideas. ' +
-                'You might focus on adding short, low‑risk activities where all students can contribute (for example, think–pair–share, polls, small group tasks) and monitoring who participates so quieter or marginalised students are invited in.'
-        },
-        {
-            id: 'd2',
-            name: 'Connecting to learners’ prior knowledge and experience',
-            shortLabel: 'Prior knowledge & experience',
-            interpretation: 'Lower scores indicate that students’ existing knowledge and experience may not be consistently activated. ' +
-                'Consider building in quick diagnostics, discussion prompts or real‑world examples that surface what students already know, including misconceptions, and explicitly link new concepts back to that starting point.'
-        },
-        {
-            id: 'd3',
-            name: 'Designing for Indigenous perspectives, diversity, equity, and belonging',
-            shortLabel: 'Diversity, equity & belonging',
-            interpretation: 'A lower rating here suggests that some students may not always see themselves, their communities or their needs reflected in learning design. ' +
-                'You might review your materials and assessments for representation, apply principles of Universal Design for Learning, and look for opportunities to embed Indigenous and other diverse perspectives in meaningful ways.'
-        },
-        {
-            id: 'd4',
-            name: 'Developing deep conceptual understanding and critical thinking',
-            shortLabel: 'Conceptual understanding & critical thinking',
-            interpretation: 'Lower scores here can mean that activities may lean more towards recall than analysis or evaluation. ' +
-                'You could experiment with tasks that require students to explain their reasoning, compare viewpoints, solve unfamiliar problems or create something new from what they have learned.'
-        },
-        {
-            id: 'd5',
-            name: 'Making learning outcomes and pathways transparent',
-            shortLabel: 'Outcomes & pathways',
-            interpretation: 'If this area scores low, students may be unclear about what they are working towards or how work will be judged. ' +
-                'You might strengthen the visibility of learning outcomes, share or co‑create criteria for success, and signpost how current learning connects to later courses, professional practice or graduate capabilities.'
-        },
-        {
-            id: 'd6',
-            name: 'Bridging theory, practice, and interdisciplinarity',
-            shortLabel: 'Theory, practice & interdisciplinarity',
-            interpretation: 'Lower scores suggest that theory and practice may feel disconnected, or that interdisciplinary links are not yet prominent. ' +
-                'You could bring in more real‑world cases, workplace scenarios or cross‑disciplinary examples, and design tasks where students must apply ideas to authentic problems.'
-        },
-        {
-            id: 'd7',
-            name: 'Harnessing digital, physical, and hybrid environments',
-            shortLabel: 'Learning environments & technology',
-            interpretation: 'If this area is rated low, technology and learning spaces may be used more by habit than by design. ' +
-                'You might review when and why you use online, face‑to‑face or hybrid modes, and choose tools or spaces that clearly enhance access, collaboration or flexibility for your students.'
-        },
-        {
-            id: 'd8',
-            name: 'Structuring and communicating learning clearly',
-            shortLabel: 'Structure & clarity',
-            interpretation: 'Lower scores here indicate that some students may find it hard to follow the flow of learning or expectations. ' +
-                'You could provide clearer roadmaps for a course or module, sequence activities more deliberately, and use brief signposts to explain how each step fits into the bigger picture.'
-        },
-        {
-            id: 'd9',
-            name: 'Embedding feedback loops and assessment for learning',
-            shortLabel: 'Feedback & assessment for learning',
-            interpretation: 'A lower rating suggests that feedback may not yet be frequent, timely or actionable enough to shape learning as it happens. ' +
-                'You might add low‑stakes checks of understanding, focus comments on specific next steps, and create chances for students to respond to feedback or show how they have used it.'
-        },
-        {
-            id: 'd10',
-            name: 'Cultivating creativity, wellbeing, and lifelong learning',
-            shortLabel: 'Creativity, wellbeing & lifelong learning',
-            interpretation: 'Low scores here can indicate limited space for creativity, wellbeing considerations or future‑focused capabilities. ' +
-                'You could build in tasks that allow choice or creative approaches, acknowledge workload and wellbeing where feasible, and make explicit links to skills and habits that support learners beyond the current course.'
-        },
-        {
-            id: 'd11',
-            name: 'Developing metacognitive and self‑regulatory learning',
-            shortLabel: 'Metacognition & self‑regulation',
-            interpretation: 'Lower scores suggest that students may not yet be supported to plan, monitor and review their own learning. ' +
-                'You might introduce short reflective tasks, goal‑setting activities or self‑assessment checklists, and model how effective learners think about and adjust their strategies.'
-        },
-        {
-            id: 'd12',
-            name: 'Integrating digital and AI literacy for learning',
-            shortLabel: 'Digital & AI literacy',
-            interpretation: 'If this area scores low, students may be using digital or AI tools without strong guidance on quality, ethics or discipline‑appropriate practice. ' +
-                'You could include activities that compare sources, critique AI outputs, discuss responsible use, and require students to document how digital or AI tools have supported their learning.'
-        }
+      {
+        id: 'D1',
+        name: 'Fostering active and inclusive engagement',
+        shortName: 'Active & inclusive engagement'
+      },
+      {
+        id: 'D2',
+        name: "Connecting to learners' prior knowledge and experience",
+        shortName: 'Prior knowledge & experience'
+      },
+      {
+        id: 'D3',
+        name: 'Designing for Indigenous perspectives, diversity, equity and belonging',
+        shortName: 'Diversity, equity & belonging'
+      },
+      {
+        id: 'D4',
+        name: 'Developing deep conceptual understanding and critical thinking',
+        shortName: 'Conceptual understanding & critical thinking'
+      },
+      {
+        id: 'D5',
+        name: 'Making learning outcomes and pathways transparent',
+        shortName: 'Transparent learning outcomes'
+      },
+      {
+        id: 'D6',
+        name: 'Bridging theory, practice and interdisciplinarity',
+        shortName: 'Theory, practice & interdisciplinarity'
+      },
+      {
+        id: 'D7',
+        name: 'Harnessing digital, physical and hybrid environments',
+        shortName: 'Digital, physical & hybrid environments'
+      },
+      {
+        id: 'D8',
+        name: 'Structuring and communicating learning clearly',
+        shortName: 'Structure & clarity'
+      },
+      {
+        id: 'D9',
+        name: 'Embedding feedback loops and assessment for learning',
+        shortName: 'Feedback & assessment for learning'
+      },
+      {
+        id: 'D10',
+        name: 'Cultivating creativity, wellbeing and lifelong learning',
+        shortName: 'Creativity, wellbeing & lifelong learning'
+      },
+      {
+        id: 'D11',
+        name: 'Developing metacognitive and self-regulatory learning',
+        shortName: 'Metacognition & self-regulation'
+      },
+      {
+        id: 'D12',
+        name: 'Integrating digital and AI literacy for learning',
+        shortName: 'Digital & AI literacy'
+      }
     ];
 
-    // ---- Survey items: 3 per dimension, but no dimension labels shown to users ----
-    const items = [
-        // d1 – Active & inclusive engagement
-        {
-            id: 'q1',
-            dimensionId: 'd1',
-            text: 'In my teaching, students regularly participate in activities (for example, discussion, polling, group work) rather than mainly listening to me talk.'
-        },
-        {
-            id: 'q2',
-            dimensionId: 'd1',
-            text: 'I deliberately design activities so that quieter or marginalised students can participate in ways that feel safe.'
-        },
-        {
-            id: 'q3',
-            dimensionId: 'd1',
-            text: 'During teaching, I notice who is participating and adjust my strategies to ensure a wide range of student voices are heard.'
-        },
+    // -------------------------
+    // Question bank
+    // reverse: true => score is reversed (1->5, 2->4, etc.)
+    // -------------------------
+    const questions = [
+      // D1 Active & inclusive engagement
+      {
+        id: 'q1',
+        dimension: 'D1',
+        reverse: false,
+        text: 'In my teaching, students are usually doing something (for example, discussion, problem-solving, polling) rather than mainly listening to me talk.'
+      },
+      {
+        id: 'q2',
+        dimension: 'D1',
+        reverse: true,
+        text: 'In many of my classes, only a handful of students participate while others remain mostly passive.'
+      },
+      {
+        id: 'q3',
+        dimension: 'D1',
+        reverse: false,
+        text: 'I consciously vary participation formats (individual, pair, small-group, whole-class) so that different students feel able to contribute.'
+      },
 
-        // d2 – Prior knowledge & experience
-        {
-            id: 'q4',
-            dimensionId: 'd2',
-            text: 'At the start of a topic, I explore what students already know or believe about the content.'
-        },
-        {
-            id: 'q5',
-            dimensionId: 'd2',
-            text: 'I explicitly connect new concepts to students’ prior knowledge, experiences or professional contexts.'
-        },
-        {
-            id: 'q6',
-            dimensionId: 'd2',
-            text: 'I treat student misconceptions as learning opportunities and design explanations or activities that help them reconsider their thinking.'
-        },
+      // D2 Prior knowledge & experience
+      {
+        id: 'q4',
+        dimension: 'D2',
+        reverse: false,
+        text: 'At the start of a topic I check what students already know or believe about key ideas.'
+      },
+      {
+        id: 'q5',
+        dimension: 'D2',
+        reverse: true,
+        text: 'I usually assume students arrive with similar background knowledge and rarely ask about their prior experience.'
+      },
+      {
+        id: 'q6',
+        dimension: 'D2',
+        reverse: false,
+        text: 'I explicitly connect new concepts to students’ personal, professional or cultural experiences.'
+      },
 
-        // d3 – Diversity, equity, belonging
-        {
-            id: 'q7',
-            dimensionId: 'd3',
-            text: 'My learning materials and examples reflect a diversity of cultures, identities and perspectives, including Indigenous perspectives where appropriate.'
-        },
-        {
-            id: 'q8',
-            dimensionId: 'd3',
-            text: 'I design activities and assessments that are accessible for students with different abilities, locations and circumstances.'
-        },
-        {
-            id: 'q9',
-            dimensionId: 'd3',
-            text: 'I intentionally build a class culture where all students are respected, feel safe to contribute and can see themselves as belonging.'
-        },
+      // D3 Diversity, equity, Indigenous perspectives, belonging
+      {
+        id: 'q7',
+        dimension: 'D3',
+        reverse: false,
+        text: 'My examples and resources reflect a range of cultures, identities and perspectives, including Indigenous perspectives where appropriate.'
+      },
+      {
+        id: 'q8',
+        dimension: 'D3',
+        reverse: true,
+        text: 'I rarely adapt tasks or materials for students with different abilities, locations or circumstances.'
+      },
+      {
+        id: 'q9',
+        dimension: 'D3',
+        reverse: false,
+        text: 'I actively work to build a class culture where all students feel safe to contribute and can see themselves belonging.'
+      },
 
-        // d4 – Conceptual understanding & critical thinking
-        {
-            id: 'q10',
-            dimensionId: 'd4',
-            text: 'I design tasks that require students to analyse, evaluate or create, not just recall information.'
-        },
-        {
-            id: 'q11',
-            dimensionId: 'd4',
-            text: 'In class, I ask questions that prompt students to explain their reasoning or compare different viewpoints.'
-        },
-        {
-            id: 'q12',
-            dimensionId: 'd4',
-            text: 'I give students opportunities to apply concepts to unfamiliar or complex problems.'
-        },
+      // D4 Deep conceptual understanding & critical thinking
+      {
+        id: 'q10',
+        dimension: 'D4',
+        reverse: false,
+        text: 'I design tasks that require students to analyse, evaluate or create, not just recall information.'
+      },
+      {
+        id: 'q11',
+        dimension: 'D4',
+        reverse: true,
+        text: 'Class time is mostly spent going through content rather than asking students to explain their reasoning.'
+      },
+      {
+        id: 'q12',
+        dimension: 'D4',
+        reverse: false,
+        text: 'I give students opportunities to apply concepts to unfamiliar or complex problems.'
+      },
 
-        // d5 – Outcomes & pathways
-        {
-            id: 'q13',
-            dimensionId: 'd5',
-            text: 'For each course or session, I clearly communicate the intended learning outcomes to students.'
-        },
-        {
-            id: 'q14',
-            dimensionId: 'd5',
-            text: 'I use rubrics, examples or co‑created criteria to make expectations for quality work explicit.'
-        },
-        {
-            id: 'q15',
-            dimensionId: 'd5',
-            text: 'I help students see how current learning connects to later courses, professional practice or graduate attributes.'
-        },
+      // D5 Transparent learning outcomes
+      {
+        id: 'q13',
+        dimension: 'D5',
+        reverse: false,
+        text: 'For each course or session, I clearly communicate the intended learning outcomes to students.'
+      },
+      {
+        id: 'q14',
+        dimension: 'D5',
+        reverse: true,
+        text: 'Students would struggle to describe how current tasks connect to course or program learning outcomes.'
+      },
+      {
+        id: 'q15',
+        dimension: 'D5',
+        reverse: false,
+        text: 'I use rubrics or co-created criteria so that expectations for quality work are explicit.'
+      },
 
-        // d6 – Theory, practice & interdisciplinarity
-        {
-            id: 'q16',
-            dimensionId: 'd6',
-            text: 'I regularly connect theoretical ideas to real‑world cases, scenarios or workplace examples.'
-        },
-        {
-            id: 'q17',
-            dimensionId: 'd6',
-            text: 'I design tasks where students apply knowledge to authentic, messy or interdisciplinary problems.'
-        },
-        {
-            id: 'q18',
-            dimensionId: 'd6',
-            text: 'Where appropriate, I include perspectives or content from other disciplines to deepen understanding.'
-        },
+      // D6 Theory, practice & interdisciplinarity
+      {
+        id: 'q16',
+        dimension: 'D6',
+        reverse: false,
+        text: 'I regularly connect theoretical ideas to real-world cases, scenarios or workplace examples.'
+      },
+      {
+        id: 'q17',
+        dimension: 'D6',
+        reverse: false,
+        text: 'I design tasks where students apply knowledge to authentic, messy or interdisciplinary problems.'
+      },
+      {
+        id: 'q18',
+        dimension: 'D6',
+        reverse: true,
+        text: 'Students rarely encounter examples or perspectives from disciplines other than my own.'
+      },
 
-        // d7 – Learning environments & technology
-        {
-            id: 'q19',
-            dimensionId: 'd7',
-            text: 'I make purposeful choices about when to use online, face‑to‑face or hybrid modes to support learning.'
-        },
-        {
-            id: 'q20',
-            dimensionId: 'd7',
-            text: 'Students use digital tools (for example, the LMS, shared documents or discussion boards) to collaborate and participate.'
-        },
-        {
-            id: 'q21',
-            dimensionId: 'd7',
-            text: 'I review how well my teaching spaces (physical or digital) work for different students and adjust my design accordingly.'
-        },
+      // D7 Digital, physical & hybrid environments
+      {
+        id: 'q19',
+        dimension: 'D7',
+        reverse: false,
+        text: 'I make purposeful choices about when to use online, classroom and hybrid modes to support learning.'
+      },
+      {
+        id: 'q20',
+        dimension: 'D7',
+        reverse: true,
+        text: 'I mainly use our LMS or digital tools as a place to store files rather than for interaction or collaboration.'
+      },
+      {
+        id: 'q21',
+        dimension: 'D7',
+        reverse: false,
+        text: 'I review how well my teaching spaces (physical or digital) work for different students and adjust my design where possible.'
+      },
 
-        // d8 – Structure & clarity
-        {
-            id: 'q22',
-            dimensionId: 'd8',
-            text: 'I provide a clear course or module‑level roadmap so students can see how learning is organised over time.'
-        },
-        {
-            id: 'q23',
-            dimensionId: 'd8',
-            text: 'Within a class or online module, activities and resources follow a logical sequence that builds understanding.'
-        },
-        {
-            id: 'q24',
-            dimensionId: 'd8',
-            text: 'I signpost key transitions (for example, why we are doing this next) and keep instructions concise and easy to follow.'
-        },
+      // D8 Structure & clarity
+      {
+        id: 'q22',
+        dimension: 'D8',
+        reverse: false,
+        text: 'I provide a clear weekly or module-level roadmap so students can see how learning is organised over time.'
+      },
+      {
+        id: 'q23',
+        dimension: 'D8',
+        reverse: false,
+        text: 'Within a class or online module, activities and resources follow a logical sequence that builds understanding.'
+      },
+      {
+        id: 'q24',
+        dimension: 'D8',
+        reverse: true,
+        text: 'Students often tell me they are unsure about what they should be doing or why at different points in the course.'
+      },
 
-        // d9 – Feedback & assessment for learning
-        {
-            id: 'q25',
-            dimensionId: 'd9',
-            text: 'I build in low‑stakes or formative assessment so students can check their understanding before major tasks.'
-        },
-        {
-            id: 'q26',
-            dimensionId: 'd9',
-            text: 'I give feedback that is timely, specific and focused on what students can do next.'
-        },
-        {
-            id: 'q27',
-            dimensionId: 'd9',
-            text: 'I create opportunities for students to discuss feedback and show how they have acted on it.'
-        },
+      // D9 Feedback & assessment for learning
+      {
+        id: 'q25',
+        dimension: 'D9',
+        reverse: false,
+        text: 'Students receive feedback early enough to influence their next piece of work.'
+      },
+      {
+        id: 'q26',
+        dimension: 'D9',
+        reverse: true,
+        text: 'I mostly give grades or brief comments without much opportunity for students to respond or ask questions.'
+      },
+      {
+        id: 'q27',
+        dimension: 'D9',
+        reverse: false,
+        text: 'I use low-stakes quizzes, polls or check-ins during teaching to gauge understanding and adjust on the spot.'
+      },
 
-        // d10 – Creativity, wellbeing, lifelong learning
-        {
-            id: 'q28',
-            dimensionId: 'd10',
-            text: 'I design activities that allow students some choice or creativity in how they demonstrate learning.'
-        },
-        {
-            id: 'q29',
-            dimensionId: 'd10',
-            text: 'I acknowledge workload, stress or wellbeing factors and adjust learning design where feasible.'
-        },
-        {
-            id: 'q30',
-            dimensionId: 'd10',
-            text: 'I explicitly connect learning to skills and habits that will support students beyond the current course (for example, curiosity, resilience or ethical awareness).'
-        },
+      // D10 Creativity, wellbeing & lifelong learning
+      {
+        id: 'q28',
+        dimension: 'D10',
+        reverse: false,
+        text: 'Some tasks invite students to be creative or take thoughtful risks in how they demonstrate learning.'
+      },
+      {
+        id: 'q29',
+        dimension: 'D10',
+        reverse: false,
+        text: 'I pay attention to student workload and wellbeing when designing assessments and learning activities.'
+      },
+      {
+        id: 'q30',
+        dimension: 'D10',
+        reverse: true,
+        text: 'Class discussions rarely explore how the knowledge in this course might connect to students’ future lives or careers.'
+      },
 
-        // d11 – Metacognition & self‑regulation
-        {
-            id: 'q31',
-            dimensionId: 'd11',
-            text: 'I explicitly teach or model strategies students can use to plan, monitor and review their learning.'
-        },
-        {
-            id: 'q32',
-            dimensionId: 'd11',
-            text: 'Students are asked to reflect on what is helping or hindering their learning and to set specific goals.'
-        },
-        {
-            id: 'q33',
-            dimensionId: 'd11',
-            text: 'I use tools such as checklists, self‑assessment or study‑planning activities to help students manage their learning.'
-        },
+      // D11 Metacognition & self-regulation
+      {
+        id: 'q31',
+        dimension: 'D11',
+        reverse: false,
+        text: 'I explicitly teach strategies that help students plan, monitor and review their own learning.'
+      },
+      {
+        id: 'q32',
+        dimension: 'D11',
+        reverse: true,
+        text: 'I expect students to figure out effective study approaches on their own without much guidance from me.'
+      },
+      {
+        id: 'q33',
+        dimension: 'D11',
+        reverse: false,
+        text: 'I give students chances to reflect on what is and is not working in their learning and to set goals.'
+      },
 
-        // d12 – Digital & AI literacy
-        {
-            id: 'q34',
-            dimensionId: 'd12',
-            text: 'I discuss with students how to judge the credibility of digital sources and online information.'
-        },
-        {
-            id: 'q35',
-            dimensionId: 'd12',
-            text: 'When using generative AI or other digital tools, I address ethical, responsible and discipline‑appropriate use.'
-        },
-        {
-            id: 'q36',
-            dimensionId: 'd12',
-            text: 'I design tasks where students critically evaluate or document how they have used digital or AI tools to support their learning.'
-        }
+      // D12 Digital & AI literacy
+      {
+        id: 'q34',
+        dimension: 'D12',
+        reverse: false,
+        text: 'I talk with students about how to evaluate the credibility of digital and AI-generated information.'
+      },
+      {
+        id: 'q35',
+        dimension: 'D12',
+        reverse: true,
+        text: 'When students use digital tools or AI, we rarely discuss ethical or responsible use.'
+      },
+      {
+        id: 'q36',
+        dimension: 'D12',
+        reverse: false,
+        text: 'I design at least some activities where AI or digital tools are used transparently to enhance learning, not replace it.'
+      }
     ];
 
-    // ---- Build the question table ----
-    function buildTable() {
-        const tbody = document.querySelector('#question-table tbody');
-        items.forEach((item, index) => {
-            const tr = document.createElement('tr');
+    // -------------------------
+    // Interpretive text for each dimension
+    // -------------------------
+    const interpretations = {
+      D1: "A lower score here suggests that students may spend a lot of time listening rather than doing, or that only a few voices dominate. Focusing on this dimension could involve building in short, structured activities that require everyone to respond in some way, and using pair or small-group work to make participation safer. You might also review whose voices you hear most often and deliberately design ways for quieter or marginalised students to contribute.",
+      D2: "A lower score indicates that students’ existing knowledge and lived experiences may not be consistently surfaced or connected with new content. Strengthening this dimension can make learning more meaningful and reduce cognitive load. Simple additions such as diagnostic polls, quick writes, or invitations for students to share professional or cultural examples can help anchor new ideas.",
+      D3: "Lower ratings here suggest that some students may not see themselves reflected in examples, or may face avoidable barriers to learning. Focusing on this area might include reviewing materials for representation, checking accessibility, building in flexible options, and seeking guidance on appropriately embedding Indigenous perspectives. Small shifts can make a big difference to students’ sense of safety and belonging.",
+      D4: "A low score may mean that time is heavily weighted towards covering content rather than working with it. Prioritising this dimension could involve adding tasks where students explain, compare, justify or apply concepts, even in short bursts during class. This can help students move from memorising information to being able to use it in flexible, sophisticated ways.",
+      D5: "A lower score here suggests that students might not always be clear about what they are aiming for or how tasks connect to course and program outcomes. Enhancing this dimension could include making outcomes visible in each module, co-creating criteria with students, and referring back to rubrics when giving feedback. Clarity often reduces anxiety and helps students monitor their own progress.",
+      D6: "Low ratings on this dimension indicate that students may struggle to see how disciplinary concepts play out in real practice or across fields. Focusing here might involve incorporating brief case studies, lived examples or interdisciplinary perspectives, even if assessments remain discipline-specific. The goal is to help students see why the ideas matter beyond the classroom.",
+      D7: "A lower score suggests opportunities to use digital, physical and hybrid spaces more deliberately. You might review which tools and spaces genuinely support interaction, access and flexibility, and which are adding noise or duplication. Prioritising this dimension could mean streamlining platforms, making expectations clear, and intentionally designing for students who may be remote, time-poor or using assistive technologies.",
+      D8: "When ratings are low, students may experience your course as bitty or hard to navigate. Focusing here could involve providing a simple learning roadmap, tightening the sequence of tasks, and checking that key instructions are easy to find and written in plain language. Clear structure frees cognitive space for deeper learning.",
+      D9: "A low score suggests that feedback may not be as timely, dialogic or actionable as it could be. Strengthening this dimension might mean building in more low-stakes checks for understanding, creating opportunities for students to respond to feedback, and ensuring comments point forward to specific next steps. Even small changes can significantly improve students’ sense of progress.",
+      D10: "A lower rating here can signal that learning may feel high-stakes, narrow or disconnected from students’ broader lives. Prioritising this dimension could involve introducing some choice and creativity in tasks, making space for reflection on wellbeing and workload, and highlighting how course ideas relate to future professional or civic roles. This can support motivation and sustainable engagement.",
+      D11: "Low scores indicate that students may not yet be getting explicit support in how to learn, only in what to learn. Focusing here might include modelling your own thinking, discussing study strategies, using brief self-assessment prompts, and inviting students to set and revisit learning goals. Over time this builds students’ independence and confidence.",
+      D12: "A lower score suggests that digital and AI tools may be used without much guidance about quality, ethics or limitations. To strengthen this dimension, you could incorporate short activities where students critique sources, compare human and AI outputs, or discuss responsible use in your discipline. This helps students use technology in informed, critical and values-aligned ways."
+    };
 
-            const tdStatement = document.createElement('td');
-            tdStatement.className = 'statement';
-            tdStatement.textContent = item.text;
-            tr.appendChild(tdStatement);
+    // -------------------------
+    // Build the question table
+    // -------------------------
+    const tbody = document.getElementById('question-rows');
 
-            for (let value = 1; value <= 5; value++) {
-                const td = document.createElement('td');
-                td.style.textAlign = 'center';
+    questions.forEach((q, index) => {
+      const tr = document.createElement('tr');
 
-                const input = document.createElement('input');
-                input.type = 'radio';
-                input.name = item.id;
-                input.value = String(value);
+      const tdStatement = document.createElement('td');
+      tdStatement.className = 'statement';
+      tdStatement.textContent = (index + 1) + '. ' + q.text;
+      tr.appendChild(tdStatement);
 
-                td.appendChild(input);
-                tr.appendChild(td);
-            }
+      for (let rating = 1; rating <= 5; rating++) {
+        const td = document.createElement('td');
+        td.className = 'scale-cell';
 
-            tbody.appendChild(tr);
-        });
-    }
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = q.id;
+        input.value = rating.toString();
+        input.setAttribute('data-dimension', q.dimension);
+        input.setAttribute('data-reverse', q.reverse ? '1' : '0');
 
-    buildTable();
+        td.appendChild(input);
+        tr.appendChild(td);
+      }
 
-    // ---- Calculation logic ----
-    function calculatePriorities() {
-        // Collect responses
-        const responses = {};
-        let missing = 0;
+      tbody.appendChild(tr);
+    });
 
-        items.forEach(item => {
-            const selected = document.querySelector('input[name="' + item.id + '"]:checked');
-            if (!selected) {
-                missing++;
-            } else {
-                responses[item.id] = parseInt(selected.value, 10);
-            }
-        });
+    // -------------------------
+    // Calculation logic
+    // -------------------------
+    document.getElementById('calculate-btn').addEventListener('click', () => {
+      const errorDiv = document.getElementById('error-message');
+      errorDiv.style.display = 'none';
+      errorDiv.textContent = '';
 
-        if (missing > 0) {
-            alert('Please respond to all statements before calculating your priorities.');
-            return;
+      // Check for unanswered questions
+      const missing = [];
+      questions.forEach((q, index) => {
+        const selected = document.querySelector('input[name="' + q.id + '"]:checked');
+        if (!selected) {
+          missing.push(index + 1);
         }
+      });
 
-        // Aggregate by dimension
-        const scores = {};
-        dimensions.forEach(dim => {
-            scores[dim.id] = { sum: 0, count: 0 };
-        });
+      if (missing.length > 0) {
+        errorDiv.textContent = 'Please respond to all statements before calculating. Missing: ' + missing.join(', ');
+        errorDiv.style.display = 'block';
+        return;
+      }
 
-        items.forEach(item => {
-            const value = responses[item.id];
-            scores[item.dimensionId].sum += value;
-            scores[item.dimensionId].count += 1;
-        });
+      // Reset dimension scores
+      const scores = {};
+      dimensions.forEach(d => {
+        scores[d.id] = { total: 0, count: 0 };
+      });
 
-        const dimensionResults = dimensions.map(dim => {
-            const data = scores[dim.id];
-            const average = data.sum / data.count;
-            return {
-                id: dim.id,
-                name: dim.name,
-                shortLabel: dim.shortLabel,
-                average: average,
-                interpretation: dim.interpretation
-            };
-        });
+      // Aggregate scores
+      questions.forEach(q => {
+        const selected = document.querySelector('input[name="' + q.id + '"]:checked');
+        if (selected) {
+          let value = parseInt(selected.value, 10);
+          if (q.reverse) {
+            value = 6 - value; // reverse scoring
+          }
+          scores[q.dimension].total += value;
+          scores[q.dimension].count += 1;
+        }
+      });
 
-        // Sort: lowest average (highest priority) first
-        dimensionResults.sort((a, b) => a.average - b.average);
+      // Build ranking
+      const ranking = dimensions.map(d => {
+        const s = scores[d.id];
+        const avg = s.count > 0 ? s.total / s.count : 0;
+        return {
+          id: d.id,
+          name: d.name,
+          shortName: d.shortName,
+          avg: avg
+        };
+      }).sort((a, b) => a.avg - b.avg); // lower = higher priority
 
-        // Show results section
-        document.getElementById('results').style.display = 'block';
+      // Render ranking list
+      const rankingList = document.getElementById('dimension-ranking');
+      rankingList.innerHTML = '';
+      ranking.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = '<strong>' + item.name + '</strong> &ndash; average rating: ' + item.avg.toFixed(2);
+        rankingList.appendChild(li);
+      });
 
-        // Top 3 dimensions
-        const topDiv = document.getElementById('top-dimensions');
-        topDiv.innerHTML = '';
+      // Top three focus dimensions
+      const topThreeDiv = document.getElementById('top-three');
+      topThreeDiv.innerHTML = '';
+      ranking.slice(0, 3).forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'dimension-card';
+        const heading = document.createElement('h4');
+        heading.textContent = 'Priority ' + (index + 1) + ': ' + item.name;
+        const para = document.createElement('p');
+        para.textContent = interpretations[item.id] || '';
+        card.appendChild(heading);
+        card.appendChild(para);
+        topThreeDiv.appendChild(card);
+      });
 
-        const top3 = dimensionResults.slice(0, 3);
-        top3.forEach((dim, index) => {
-            const div = document.createElement('div');
-            div.className = 'dim-result';
+      // Build copy-and-paste summary
+      let summary = '';
+      summary += 'PPP dimension priorities (from highest priority / lowest rating to lowest priority):\n\n';
+      ranking.forEach((item, index) => {
+        summary += (index + 1) + '. ' + item.name + ' – average rating: ' + item.avg.toFixed(2) + '\n';
+      });
+      summary += '\nTop three suggested focus dimensions:\n';
+      ranking.slice(0, 3).forEach((item, index) => {
+        summary += (index + 1) + '. ' + item.name + '\n';
+      });
 
-            const h3 = document.createElement('h3');
-            h3.textContent = (index + 1) + '. ' + dim.name;
-            div.appendChild(h3);
+      document.getElementById('summary-text').value = summary;
 
-            const scoreP = document.createElement('p');
-            scoreP.className = 'dim-score';
-            scoreP.textContent = 'Average rating: ' + dim.average.toFixed(2) +
-                ' (1 = strongly disagree, 5 = strongly agree). Lower scores indicate a higher priority for focus.';
-            div.appendChild(scoreP);
-
-            const explP = document.createElement('p');
-            explP.textContent = dim.interpretation;
-            div.appendChild(explP);
-
-            topDiv.appendChild(div);
-        });
-
-        // All dimensions table
-        const allDiv = document.getElementById('all-dimensions');
-        let allHtml = '<table><thead><tr>' +
-            '<th>Priority</th><th>Dimension</th><th>Average rating</th>' +
-            '</tr></thead><tbody>';
-
-        dimensionResults.forEach((dim, index) => {
-            allHtml += '<tr>' +
-                '<td style="text-align:center;">' + (index + 1) + '</td>' +
-                '<td>' + dim.name + '</td>' +
-                '<td style="text-align:center;">' + dim.average.toFixed(2) + '</td>' +
-                '</tr>';
-        });
-
-        allHtml += '</tbody></table>';
-        allDiv.innerHTML = allHtml;
-
-        // Text summary for copy‑and‑paste
-        let summary = 'PPP dimension priorities (from highest to lowest priority)\n';
-        summary += '(1 = lowest average rating: strongest potential focus)\n\n';
-
-        dimensionResults.forEach((dim, index) => {
-            summary += (index + 1) + '. ' + dim.name +
-                ' – average rating ' + dim.average.toFixed(2) + '\n';
-        });
-
-        summary += '\nSuggested focus areas\n';
-        top3.forEach((dim, index) => {
-            summary += '\n' + (index + 1) + '. ' + dim.name +
-                ' – average rating ' + dim.average.toFixed(2) + '\n';
-            summary += dim.interpretation + '\n';
-        });
-
-        document.getElementById('summary-text').value = summary;
-    }
-</script>
+      // Show results
+      document.getElementById('results-section').style.display = 'block';
+      // Scroll to results
+      document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>
