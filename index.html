@@ -5,592 +5,645 @@
   <title>PPP Dimension Selector Self-check</title>
   <style>
     body {
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #ffffff;
       margin: 0;
-      padding: 0 0 40px 0;
-      line-height: 1.5;
-      color: #222;
+      padding: 0;
     }
+
+    .page-container {
+      max-width: 1100px;
+      margin: 0 auto 40px;
+      padding: 0 24px;
+    }
+
     h1, h2, h3 {
       font-weight: 600;
     }
-    h2 {
-      color: #c10404;
-      margin-top: 32px;
-    }
+
     .banner {
       background-color: #00205b;
       color: #ffffff;
       padding: 12px 16px;
-      margin-bottom: 16px;
+      margin: 16px 0;
     }
+
     .banner h1 {
       margin: 0;
       font-size: 1.6em;
-      background: none;
     }
+
     .intro-box {
-      margin: 0 0 24px;
-      padding: 16px 20px;
       background-color: #f3f3f3;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      border-radius: 2px;
     }
-    .intro-box ul {
-      margin-top: 4px;
+
+    .scale-list {
+      margin-top: 8px;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 0.95em;
+    }
+
+    th, td {
+      border: 1px solid #d0d0d0;
+      padding: 8px 10px;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #f3f3f3;
+      text-align: left;
+    }
+
+    th.scale-header {
+      text-align: center;
+      width: 50px;
+    }
+
+    td.scale-cell {
+      text-align: center;
+      width: 50px;
+    }
+
+    .statement-row:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    .statement-row.missing {
+      background-color: #ffecec;
+    }
+
+    .calculate-container {
+      margin: 20px 0 10px;
+    }
+
+    button {
+      background-color: #c10404;
+      border: none;
+      color: #ffffff;
+      padding: 8px 18px;
+      font-size: 0.95em;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #a20202;
+    }
+
+    #message {
+      margin: 8px 0 0;
+      font-size: 0.95em;
+    }
+
+    #message.error {
+      color: #c10404;
+    }
+
+    #results {
+      margin-top: 32px;
+      display: none;
+    }
+
+    #results h2 {
+      color: #c10404;
+      margin-top: 0;
+    }
+
+    #results p {
+      font-size: 0.95em;
+      line-height: 1.6;
+    }
+
+    #full-ranking-table {
       margin-top: 12px;
       font-size: 0.95em;
     }
-    th, td {
-      border-bottom: 1px solid #ddd;
-      padding: 6px 4px;
-      vertical-align: top;
-    }
-    th {
-      background-color: #f7f7f7;
-      text-align: center;
-      font-weight: 600;
-    }
-    th.statement-header {
+
+    #full-ranking-table th {
       text-align: left;
-      width: 70%;
     }
-    td.scale {
-      text-align: center;
-      width: 6%;
+
+    #full-ranking-table td {
+      padding: 6px 8px;
     }
-    .dim-label {
-      font-weight: 600;
-      margin-top: 16px;
-    }
-    .calculate-btn {
-      margin-top: 16px;
-      padding: 8px 18px;
-      background-color: #c10404;
-      color: #ffffff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.95em;
-    }
-    .calculate-btn:hover {
-      background-color: #a00303;
-    }
-    #results {
-      margin-top: 32px;
-      padding-top: 8px;
-      border-top: 2px solid #e0e0e0;
-      display: none;
-    }
+
     textarea {
       width: 100%;
-      min-height: 180px;
-      padding: 8px;
-      font-family: "Courier New", monospace;
+      min-height: 200px;
+      font-family: "Consolas", "Courier New", monospace;
       font-size: 0.9em;
+      padding: 8px;
       box-sizing: border-box;
     }
-    .need-help {
-      margin: 32px 0 0;
-      padding: 8px 16px;
-      background-color: #f7f7f7;
-      border-left: 4px solid #c10404;
-      font-size: 0.95em;
+
+    .footer-note {
+      font-size: 0.9em;
+      margin-top: 16px;
+      color: #444;
     }
-    .need-help a {
-      color: #c71f23;
-    }
+
     @media (max-width: 700px) {
-      th.statement-header {
-        width: 55%;
+      th.scale-header,
+      td.scale-cell {
+        width: 32px;
+        padding: 4px;
       }
     }
   </style>
 </head>
 <body>
+  <div class="page-container">
+    <div class="banner">
+      <h1>PPP Dimension Selector Self-check</h1>
+    </div>
 
-  <div class="banner">
-    <h1>PPP Dimension Selector Self-check</h1>
-  </div>
+    <div class="intro-box">
+      <p>Use this quick self-check to identify which PPP dimensions might be most useful to focus on. Rate each statement on a scale from 1–5:</p>
+      <ul class="scale-list">
+        <li>1 = Strongly disagree</li>
+        <li>2 = Disagree</li>
+        <li>3 = Neutral</li>
+        <li>4 = Agree</li>
+        <li>5 = Strongly agree</li>
+      </ul>
+      <p style="margin-top: 8px;">Lower scores often indicate areas where additional focus may be helpful. This tool is for your own reflection and is not stored or submitted.</p>
+      <p style="margin-top: 8px;">The self-check has 36 statements and usually takes around 5–7 minutes to complete.</p>
+    </div>
 
-  <div class="intro-box">
-    <p><strong>Use this quick self-check to identify which PPP dimensions might be most useful to focus on first.</strong> Rate each statement on a scale from 1–5:</p>
-    <ul>
-      <li>1 = Strongly disagree</li>
-      <li>2 = Disagree</li>
-      <li>3 = Neutral / unsure</li>
-      <li>4 = Agree</li>
-      <li>5 = Strongly agree</li>
-    </ul>
-    <p>Higher ratings mean the statement is more true of your current practice. Lower scores often highlight areas where additional focus could be helpful.</p>
-    <p>This self-check takes around <strong>5–7 minutes</strong>. It is for your own reflection only and is not stored or submitted.</p>
-  </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Dimension &amp; statement</th>
+          <th class="scale-header">1</th>
+          <th class="scale-header">2</th>
+          <th class="scale-header">3</th>
+          <th class="scale-header">4</th>
+          <th class="scale-header">5</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 1. Fostering Active and Inclusive Engagement -->
+        <tr class="statement-row" data-question="1">
+          <td>In my teaching, students regularly participate in activities (for example, discussion, polling, group work) rather than mainly listening to me talk.</td>
+          <td class="scale-cell"><input type="radio" name="q1" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q1" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q1" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q1" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q1" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="2">
+          <td>I deliberately design activities so that quieter or marginalised students can participate in ways that feel safe.</td>
+          <td class="scale-cell"><input type="radio" name="q2" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q2" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q2" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q2" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q2" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="3">
+          <td>During teaching, I monitor who is participating and adjust my strategies so a wide range of student voices are heard.</td>
+          <td class="scale-cell"><input type="radio" name="q3" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q3" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q3" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q3" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q3" value="5"></td>
+        </tr>
 
-  <h2>Rate each statement</h2>
-  <p>Please respond to every statement below. Some statements are deliberately quite specific so that a rating of “5” is reserved for practices you do consistently and confidently.</p>
+        <!-- 2. Connecting to Learners’ Prior Knowledge and Experience -->
+        <tr class="statement-row" data-question="4">
+          <td>At the start of a topic, I explore what students already know or believe about the content.</td>
+          <td class="scale-cell"><input type="radio" name="q4" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q4" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q4" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q4" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q4" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="5">
+          <td>When introducing new concepts I explicitly connect them to students’ prior knowledge, experiences or professional contexts.</td>
+          <td class="scale-cell"><input type="radio" name="q5" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q5" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q5" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q5" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q5" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="6">
+          <td>I treat student misconceptions as learning opportunities and design explanations or activities that help them reconsider their thinking.</td>
+          <td class="scale-cell"><input type="radio" name="q6" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q6" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q6" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q6" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q6" value="5"></td>
+        </tr>
 
-  <table>
-    <thead>
-      <tr>
-        <th class="statement-header">Statement</th>
-        <th>1</th>
-        <th>2</th>
-        <th>3</th>
-        <th>4</th>
-        <th>5</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Questions 1–36. Order is 3 per dimension. -->
-      <!-- Dimension 1: Fostering Active and Inclusive Engagement -->
-      <tr>
-        <td>In my teaching, most students take an active part in learning activities rather than mainly listening to me talk.</td>
-        <td class="scale"><input type="radio" name="q1" value="1"></td>
-        <td class="scale"><input type="radio" name="q1" value="2"></td>
-        <td class="scale"><input type="radio" name="q1" value="3"></td>
-        <td class="scale"><input type="radio" name="q1" value="4"></td>
-        <td class="scale"><input type="radio" name="q1" value="5"></td>
-      </tr>
-      <tr>
-        <td>I routinely use participation strategies that give quieter or marginalised students low-risk ways to contribute.</td>
-        <td class="scale"><input type="radio" name="q2" value="1"></td>
-        <td class="scale"><input type="radio" name="q2" value="2"></td>
-        <td class="scale"><input type="radio" name="q2" value="3"></td>
-        <td class="scale"><input type="radio" name="q2" value="4"></td>
-        <td class="scale"><input type="radio" name="q2" value="5"></td>
-      </tr>
-      <tr>
-        <td>I rarely rely on a single activity format (for example, whole-class discussion only) for an entire session.</td>
-        <td class="scale"><input type="radio" name="q3" value="1"></td>
-        <td class="scale"><input type="radio" name="q3" value="2"></td>
-        <td class="scale"><input type="radio" name="q3" value="3"></td>
-        <td class="scale"><input type="radio" name="q3" value="4"></td>
-        <td class="scale"><input type="radio" name="q3" value="5"></td>
-      </tr>
+        <!-- 3. Designing for Indigenous Perspectives, Diversity, Equity, and Belonging -->
+        <tr class="statement-row" data-question="7">
+          <td>My learning materials and examples reflect a diversity of cultures, identities and perspectives, including Indigenous perspectives where appropriate.</td>
+          <td class="scale-cell"><input type="radio" name="q7" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q7" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q7" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q7" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q7" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="8">
+          <td>I design activities and assessments that are accessible for students with different abilities, locations and circumstances.</td>
+          <td class="scale-cell"><input type="radio" name="q8" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q8" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q8" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q8" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q8" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="9">
+          <td>I intentionally build a class culture where all students are respected, feel safe to contribute and can see themselves as belonging.</td>
+          <td class="scale-cell"><input type="radio" name="q9" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q9" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q9" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q9" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q9" value="5"></td>
+        </tr>
 
-      <!-- Dimension 2: Connecting to Learners’ Prior Knowledge and Experience -->
-      <tr>
-        <td>Before introducing a new concept, I deliberately check what students already know or believe about the topic.</td>
-        <td class="scale"><input type="radio" name="q4" value="1"></td>
-        <td class="scale"><input type="radio" name="q4" value="2"></td>
-        <td class="scale"><input type="radio" name="q4" value="3"></td>
-        <td class="scale"><input type="radio" name="q4" value="4"></td>
-        <td class="scale"><input type="radio" name="q4" value="5"></td>
-      </tr>
-      <tr>
-        <td>I explicitly invite students to connect ideas to their own professional, cultural or lived experiences.</td>
-        <td class="scale"><input type="radio" name="q5" value="1"></td>
-        <td class="scale"><input type="radio" name="q5" value="2"></td>
-        <td class="scale"><input type="radio" name="q5" value="3"></td>
-        <td class="scale"><input type="radio" name="q5" value="4"></td>
-        <td class="scale"><input type="radio" name="q5" value="5"></td>
-      </tr>
-      <tr>
-        <td>I seldom move on from a key idea without first checking that students can explain it in their own words.</td>
-        <td class="scale"><input type="radio" name="q6" value="1"></td>
-        <td class="scale"><input type="radio" name="q6" value="2"></td>
-        <td class="scale"><input type="radio" name="q6" value="3"></td>
-        <td class="scale"><input type="radio" name="q6" value="4"></td>
-        <td class="scale"><input type="radio" name="q6" value="5"></td>
-      </tr>
+        <!-- 4. Developing Deep Conceptual Understanding and Critical Thinking -->
+        <tr class="statement-row" data-question="10">
+          <td>I design learning tasks that require students to analyse, evaluate or create, not just recall information.</td>
+          <td class="scale-cell"><input type="radio" name="q10" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q10" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q10" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q10" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q10" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="11">
+          <td>In class, I use questions that prompt students to explain their reasoning or compare different viewpoints.</td>
+          <td class="scale-cell"><input type="radio" name="q11" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q11" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q11" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q11" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q11" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="12">
+          <td>I give students opportunities to apply concepts to unfamiliar or complex problems.</td>
+          <td class="scale-cell"><input type="radio" name="q12" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q12" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q12" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q12" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q12" value="5"></td>
+        </tr>
 
-      <!-- Dimension 3: Designing for Indigenous Perspectives, Diversity, Equity and Belonging -->
-      <tr>
-        <td>Course materials and examples in my teaching reflect a variety of cultures, identities and perspectives, including Indigenous ones where appropriate.</td>
-        <td class="scale"><input type="radio" name="q7" value="1"></td>
-        <td class="scale"><input type="radio" name="q7" value="2"></td>
-        <td class="scale"><input type="radio" name="q7" value="3"></td>
-        <td class="scale"><input type="radio" name="q7" value="4"></td>
-        <td class="scale"><input type="radio" name="q7" value="5"></td>
-      </tr>
-      <tr>
-        <td>I design tasks with flexibility (for example, topic, format or mode) so that students with different needs can demonstrate their learning equitably.</td>
-        <td class="scale"><input type="radio" name="q8" value="1"></td>
-        <td class="scale"><input type="radio" name="q8" value="2"></td>
-        <td class="scale"><input type="radio" name="q8" value="3"></td>
-        <td class="scale"><input type="radio" name="q8" value="4"></td>
-        <td class="scale"><input type="radio" name="q8" value="5"></td>
-      </tr>
-      <tr>
-        <td>I intentionally build classroom norms that help students feel respected, safe to contribute, and a sense of belonging.</td>
-        <td class="scale"><input type="radio" name="q9" value="1"></td>
-        <td class="scale"><input type="radio" name="q9" value="2"></td>
-        <td class="scale"><input type="radio" name="q9" value="3"></td>
-        <td class="scale"><input type="radio" name="q9" value="4"></td>
-        <td class="scale"><input type="radio" name="q9" value="5"></td>
-      </tr>
+        <!-- 5. Making Learning Outcomes and Pathways Transparent -->
+        <tr class="statement-row" data-question="13">
+          <td>For each course or session, I clearly communicate the intended learning outcomes to students.</td>
+          <td class="scale-cell"><input type="radio" name="q13" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q13" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q13" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q13" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q13" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="14">
+          <td>I use rubrics, examples or co-created criteria so that students know what quality work looks like.</td>
+          <td class="scale-cell"><input type="radio" name="q14" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q14" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q14" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q14" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q14" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="15">
+          <td>I help students see how current learning connects to later courses, professional practice or graduate attributes.</td>
+          <td class="scale-cell"><input type="radio" name="q15" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q15" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q15" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q15" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q15" value="5"></td>
+        </tr>
 
-      <!-- Dimension 4: Developing Deep Conceptual Understanding and Critical Thinking -->
-      <tr>
-        <td>I design activities that require students to analyse, compare or evaluate ideas rather than just recall information.</td>
-        <td class="scale"><input type="radio" name="q10" value="1"></td>
-        <td class="scale"><input type="radio" name="q10" value="2"></td>
-        <td class="scale"><input type="radio" name="q10" value="3"></td>
-        <td class="scale"><input type="radio" name="q10" value="4"></td>
-        <td class="scale"><input type="radio" name="q10" value="5"></td>
-      </tr>
-      <tr>
-        <td>I routinely ask follow-up questions that push students to justify or extend their thinking.</td>
-        <td class="scale"><input type="radio" name="q11" value="1"></td>
-        <td class="scale"><input type="radio" name="q11" value="2"></td>
-        <td class="scale"><input type="radio" name="q11" value="3"></td>
-        <td class="scale"><input type="radio" name="q11" value="4"></td>
-        <td class="scale"><input type="radio" name="q11" value="5"></td>
-      </tr>
-      <tr>
-        <td>Students regularly have opportunities to apply concepts to unfamiliar or complex problems.</td>
-        <td class="scale"><input type="radio" name="q12" value="1"></td>
-        <td class="scale"><input type="radio" name="q12" value="2"></td>
-        <td class="scale"><input type="radio" name="q12" value="3"></td>
-        <td class="scale"><input type="radio" name="q12" value="4"></td>
-        <td class="scale"><input type="radio" name="q12" value="5"></td>
-      </tr>
+        <!-- 6. Bridging Theory, Practice, and Interdisciplinarity -->
+        <tr class="statement-row" data-question="16">
+          <td>I regularly connect theoretical ideas to real-world cases, scenarios or workplace examples.</td>
+          <td class="scale-cell"><input type="radio" name="q16" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q16" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q16" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q16" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q16" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="17">
+          <td>I design learning activities where students apply knowledge to authentic, messy or interdisciplinary problems.</td>
+          <td class="scale-cell"><input type="radio" name="q17" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q17" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q17" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q17" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q17" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="18">
+          <td>Where relevant, I invite perspectives or content from other disciplines to deepen understanding.</td>
+          <td class="scale-cell"><input type="radio" name="q18" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q18" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q18" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q18" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q18" value="5"></td>
+        </tr>
 
-      <!-- Dimension 5: Making Learning Outcomes and Pathways Transparent -->
-      <tr>
-        <td>For each course or session, I clearly communicate the intended learning outcomes to students.</td>
-        <td class="scale"><input type="radio" name="q13" value="1"></td>
-        <td class="scale"><input type="radio" name="q13" value="2"></td>
-        <td class="scale"><input type="radio" name="q13" value="3"></td>
-        <td class="scale"><input type="radio" name="q13" value="4"></td>
-        <td class="scale"><input type="radio" name="q13" value="5"></td>
-      </tr>
-      <tr>
-        <td>Assessment criteria or rubrics are explicit and used with students to define what quality work looks like.</td>
-        <td class="scale"><input type="radio" name="q14" value="1"></td>
-        <td class="scale"><input type="radio" name="q14" value="2"></td>
-        <td class="scale"><input type="radio" name="q14" value="3"></td>
-        <td class="scale"><input type="radio" name="q14" value="4"></td>
-        <td class="scale"><input type="radio" name="q14" value="5"></td>
-      </tr>
-      <tr>
-        <td>I regularly help students connect current learning to future courses, professional practice or graduate capabilities.</td>
-        <td class="scale"><input type="radio" name="q15" value="1"></td>
-        <td class="scale"><input type="radio" name="q15" value="2"></td>
-        <td class="scale"><input type="radio" name="q15" value="3"></td>
-        <td class="scale"><input type="radio" name="q15" value="4"></td>
-        <td class="scale"><input type="radio" name="q15" value="5"></td>
-      </tr>
+        <!-- 7. Harnessing Digital, Physical, and Hybrid Environments -->
+        <tr class="statement-row" data-question="19">
+          <td>I make purposeful choices about when to use online, face-to-face or hybrid modes to support learning.</td>
+          <td class="scale-cell"><input type="radio" name="q19" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q19" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q19" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q19" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q19" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="20">
+          <td>Students use digital tools (for example, the LMS, shared documents or discussion boards) to collaborate and participate.</td>
+          <td class="scale-cell"><input type="radio" name="q20" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q20" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q20" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q20" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q20" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="21">
+          <td>I review how well my teaching spaces (physical or digital) work for different students and adjust my design accordingly.</td>
+          <td class="scale-cell"><input type="radio" name="q21" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q21" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q21" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q21" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q21" value="5"></td>
+        </tr>
 
-      <!-- Dimension 6: Bridging Theory, Practice and Interdisciplinarity -->
-      <tr>
-        <td>I link key theoretical ideas to real-world cases, scenarios or work examples.</td>
-        <td class="scale"><input type="radio" name="q16" value="1"></td>
-        <td class="scale"><input type="radio" name="q16" value="2"></td>
-        <td class="scale"><input type="radio" name="q16" value="3"></td>
-        <td class="scale"><input type="radio" name="q16" value="4"></td>
-        <td class="scale"><input type="radio" name="q16" value="5"></td>
-      </tr>
-      <tr>
-        <td>Students have opportunities to use knowledge from other disciplines or subjects when working in my course.</td>
-        <td class="scale"><input type="radio" name="q17" value="1"></td>
-        <td class="scale"><input type="radio" name="q17" value="2"></td>
-        <td class="scale"><input type="radio" name="q17" value="3"></td>
-        <td class="scale"><input type="radio" name="q17" value="4"></td>
-        <td class="scale"><input type="radio" name="q17" value="5"></td>
-      </tr>
-      <tr>
-        <td>I intentionally design tasks that require students to apply theory to practice rather than treating them as separate.</td>
-        <td class="scale"><input type="radio" name="q18" value="1"></td>
-        <td class="scale"><input type="radio" name="q18" value="2"></td>
-        <td class="scale"><input type="radio" name="q18" value="3"></td>
-        <td class="scale"><input type="radio" name="q18" value="4"></td>
-        <td class="scale"><input type="radio" name="q18" value="5"></td>
-      </tr>
+        <!-- 8. Structuring and Communicating Learning Clearly -->
+        <tr class="statement-row" data-question="22">
+          <td>I provide a clear course or module-level roadmap so students can see how learning is organised over time.</td>
+          <td class="scale-cell"><input type="radio" name="q22" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q22" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q22" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q22" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q22" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="23">
+          <td>Within a class or online module, activities and resources follow a logical sequence that builds understanding.</td>
+          <td class="scale-cell"><input type="radio" name="q23" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q23" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q23" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q23" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q23" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="24">
+          <td>I signpost key transitions (for example, why we are doing this next) and keep instructions concise and easy to follow.</td>
+          <td class="scale-cell"><input type="radio" name="q24" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q24" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q24" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q24" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q24" value="5"></td>
+        </tr>
 
-      <!-- Dimension 7: Harnessing Digital, Physical and Hybrid Environments -->
-      <tr>
-        <td>I make purposeful choices about when to use online, face-to-face or hybrid modes to support learning.</td>
-        <td class="scale"><input type="radio" name="q19" value="1"></td>
-        <td class="scale"><input type="radio" name="q19" value="2"></td>
-        <td class="scale"><input type="radio" name="q19" value="3"></td>
-        <td class="scale"><input type="radio" name="q19" value="4"></td>
-        <td class="scale"><input type="radio" name="q19" value="5"></td>
-      </tr>
-      <tr>
-        <td>Students regularly use digital tools (for example, the LMS, shared documents or discussion boards) to support interaction and collaboration.</td>
-        <td class="scale"><input type="radio" name="q20" value="1"></td>
-        <td class="scale"><input type="radio" name="q20" value="2"></td>
-        <td class="scale"><input type="radio" name="q20" value="3"></td>
-        <td class="scale"><input type="radio" name="q20" value="4"></td>
-        <td class="scale"><input type="radio" name="q20" value="5"></td>
-      </tr>
-      <tr>
-        <td>When teaching, I review how well my learning spaces (physical or digital) are working and adjust layout, tools or activities accordingly.</td>
-        <td class="scale"><input type="radio" name="q21" value="1"></td>
-        <td class="scale"><input type="radio" name="q21" value="2"></td>
-        <td class="scale"><input type="radio" name="q21" value="3"></td>
-        <td class="scale"><input type="radio" name="q21" value="4"></td>
-        <td class="scale"><input type="radio" name="q21" value="5"></td>
-      </tr>
+        <!-- 9. Embedding Feedback Loops and Assessment for Learning -->
+        <tr class="statement-row" data-question="25">
+          <td>I design low-stakes activities (quizzes, draft submissions, polls, reflections) so that students and I can gauge learning progress.</td>
+          <td class="scale-cell"><input type="radio" name="q25" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q25" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q25" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q25" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q25" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="26">
+          <td>I explicitly build time for students to respond to feedback (for example, revising work or setting improvement goals).</td>
+          <td class="scale-cell"><input type="radio" name="q26" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q26" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q26" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q26" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q26" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="27">
+          <td>Feedback in my course focuses on what students did well, what needs work, and specific next steps.</td>
+          <td class="scale-cell"><input type="radio" name="q27" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q27" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q27" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q27" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q27" value="5"></td>
+        </tr>
 
-      <!-- Dimension 8: Structuring and Communicating Learning Clearly -->
-      <tr>
-        <td>I provide a clear weekly or module-level roadmap so that students can see how learning is organised over time.</td>
-        <td class="scale"><input type="radio" name="q22" value="1"></td>
-        <td class="scale"><input type="radio" name="q22" value="2"></td>
-        <td class="scale"><input type="radio" name="q22" value="3"></td>
-        <td class="scale"><input type="radio" name="q22" value="4"></td>
-        <td class="scale"><input type="radio" name="q22" value="5"></td>
-      </tr>
-      <tr>
-        <td>Within a class or online module, activities and resources follow a logical sequence that builds understanding.</td>
-        <td class="scale"><input type="radio" name="q23" value="1"></td>
-        <td class="scale"><input type="radio" name="q23" value="2"></td>
-        <td class="scale"><input type="radio" name="q23" value="3"></td>
-        <td class="scale"><input type="radio" name="q23" value="4"></td>
-        <td class="scale"><input type="radio" name="q23" value="5"></td>
-      </tr>
-      <tr>
-        <td>I routinely signpost key transitions in a session (for example, wrapping up one idea before moving to the next).</td>
-        <td class="scale"><input type="radio" name="q24" value="1"></td>
-        <td class="scale"><input type="radio" name="q24" value="2"></td>
-        <td class="scale"><input type="radio" name="q24" value="3"></td>
-        <td class="scale"><input type="radio" name="q24" value="4"></td>
-        <td class="scale"><input type="radio" name="q24" value="5"></td>
-      </tr>
+        <!-- 10. Cultivating Creativity, Wellbeing, and Lifelong Learning -->
+        <tr class="statement-row" data-question="28">
+          <td>Some learning activities in my course invite students to be creative, experimental or imaginative in how they respond.</td>
+          <td class="scale-cell"><input type="radio" name="q28" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q28" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q28" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q28" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q28" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="29">
+          <td>I pay attention to student workload and wellbeing and talk explicitly about strategies for managing study demands.</td>
+          <td class="scale-cell"><input type="radio" name="q29" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q29" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q29" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q29" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q29" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="30">
+          <td>I encourage students to see how skills from this course will be useful beyond assessment and into their longer-term futures.</td>
+          <td class="scale-cell"><input type="radio" name="q30" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q30" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q30" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q30" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q30" value="5"></td>
+        </tr>
 
-      <!-- Dimension 9: Embedding Feedback Loops and Assessment for Learning -->
-      <tr>
-        <td>Students receive feedback from me or peers early enough to influence their next attempt at a task.</td>
-        <td class="scale"><input type="radio" name="q25" value="1"></td>
-        <td class="scale"><input type="radio" name="q25" value="2"></td>
-        <td class="scale"><input type="radio" name="q25" value="3"></td>
-        <td class="scale"><input type="radio" name="q25" value="4"></td>
-        <td class="scale"><input type="radio" name="q25" value="5"></td>
-      </tr>
-      <tr>
-        <td>I design low-stakes activities (quizzes, draft submissions, polls, reflections) primarily so that students and I can gauge learning progress.</td>
-        <td class="scale"><input type="radio" name="q26" value="1"></td>
-        <td class="scale"><input type="radio" name="q26" value="2"></td>
-        <td class="scale"><input type="radio" name="q26" value="3"></td>
-        <td class="scale"><input type="radio" name="q26" value="4"></td>
-        <td class="scale"><input type="radio" name="q26" value="5"></td>
-      </tr>
-      <tr>
-        <td>I explicitly build in time for students to respond to feedback (for example, revising work or setting improvement goals).</td>
-        <td class="scale"><input type="radio" name="q27" value="1"></td>
-        <td class="scale"><input type="radio" name="q27" value="2"></td>
-        <td class="scale"><input type="radio" name="q27" value="3"></td>
-        <td class="scale"><input type="radio" name="q27" value="4"></td>
-        <td class="scale"><input type="radio" name="q27" value="5"></td>
-      </tr>
+        <!-- 11. Developing Metacognitive and Self-Regulatory Learning -->
+        <tr class="statement-row" data-question="31">
+          <td>I explicitly teach or model study and learning strategies rather than assuming students already have them.</td>
+          <td class="scale-cell"><input type="radio" name="q31" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q31" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q31" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q31" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q31" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="32">
+          <td>Students are given chances to plan their learning (for example, setting goals or choosing approaches) and to review how those plans worked.</td>
+          <td class="scale-cell"><input type="radio" name="q32" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q32" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q32" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q32" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q32" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="33">
+          <td>I use self- or peer-assessment activities that help students judge the quality of their own work.</td>
+          <td class="scale-cell"><input type="radio" name="q33" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q33" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q33" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q33" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q33" value="5"></td>
+        </tr>
 
-      <!-- Dimension 10: Cultivating Creativity, Wellbeing and Lifelong Learning -->
-      <tr>
-        <td>Some learning activities in my course invite students to be creative, experimental or imaginative in how they respond.</td>
-        <td class="scale"><input type="radio" name="q28" value="1"></td>
-        <td class="scale"><input type="radio" name="q28" value="2"></td>
-        <td class="scale"><input type="radio" name="q28" value="3"></td>
-        <td class="scale"><input type="radio" name="q28" value="4"></td>
-        <td class="scale"><input type="radio" name="q28" value="5"></td>
-      </tr>
-      <tr>
-        <td>I pay attention to student workload and wellbeing and talk explicitly about strategies for managing study demands.</td>
-        <td class="scale"><input type="radio" name="q29" value="1"></td>
-        <td class="scale"><input type="radio" name="q29" value="2"></td>
-        <td class="scale"><input type="radio" name="q29" value="3"></td>
-        <td class="scale"><input type="radio" name="q29" value="4"></td>
-        <td class="scale"><input type="radio" name="q29" value="5"></td>
-      </tr>
-      <tr>
-        <td>I encourage students to see how skills from this course will be useful beyond assessment and into their longer-term futures.</td>
-        <td class="scale"><input type="radio" name="q30" value="1"></td>
-        <td class="scale"><input type="radio" name="q30" value="2"></td>
-        <td class="scale"><input type="radio" name="q30" value="3"></td>
-        <td class="scale"><input type="radio" name="q30" value="4"></td>
-        <td class="scale"><input type="radio" name="q30" value="5"></td>
-      </tr>
+        <!-- 12. Integrating Digital and AI Literacy for Learning -->
+        <tr class="statement-row" data-question="34">
+          <td>I discuss with students how to evaluate the credibility of digital sources and information.</td>
+          <td class="scale-cell"><input type="radio" name="q34" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q34" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q34" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q34" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q34" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="35">
+          <td>When AI tools are relevant, I explicitly address ethical and responsible use with students.</td>
+          <td class="scale-cell"><input type="radio" name="q35" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q35" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q35" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q35" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q35" value="5"></td>
+        </tr>
+        <tr class="statement-row" data-question="36">
+          <td>I design at least some tasks that require students to use digital or AI tools critically rather than uncritically accepting outputs.</td>
+          <td class="scale-cell"><input type="radio" name="q36" value="1"></td>
+          <td class="scale-cell"><input type="radio" name="q36" value="2"></td>
+          <td class="scale-cell"><input type="radio" name="q36" value="3"></td>
+          <td class="scale-cell"><input type="radio" name="q36" value="4"></td>
+          <td class="scale-cell"><input type="radio" name="q36" value="5"></td>
+        </tr>
+      </tbody>
+    </table>
 
-      <!-- Dimension 11: Developing Metacognitive and Self-Regulatory Learning -->
-      <tr>
-        <td>I explicitly teach or model study and learning strategies rather than assuming students already have them.</td>
-        <td class="scale"><input type="radio" name="q31" value="1"></td>
-        <td class="scale"><input type="radio" name="q31" value="2"></td>
-        <td class="scale"><input type="radio" name="q31" value="3"></td>
-        <td class="scale"><input type="radio" name="q31" value="4"></td>
-        <td class="scale"><input type="radio" name="q31" value="5"></td>
-      </tr>
-      <tr>
-        <td>Students are given chances to plan their learning (for example, setting goals or choosing approaches) and to review how those plans worked.</td>
-        <td class="scale"><input type="radio" name="q32" value="1"></td>
-        <td class="scale"><input type="radio" name="q32" value="2"></td>
-        <td class="scale"><input type="radio" name="q32" value="3"></td>
-        <td class="scale"><input type="radio" name="q32" value="4"></td>
-        <td class="scale"><input type="radio" name="q32" value="5"></td>
-      </tr>
-      <tr>
-        <td>I use self- or peer-assessment activities that help students judge the quality of their own work.</td>
-        <td class="scale"><input type="radio" name="q33" value="1"></td>
-        <td class="scale"><input type="radio" name="q33" value="2"></td>
-        <td class="scale"><input type="radio" name="q33" value="3"></td>
-        <td class="scale"><input type="radio" name="q33" value="4"></td>
-        <td class="scale"><input type="radio" name="q33" value="5"></td>
-      </tr>
+    <div class="calculate-container">
+      <button type="button" onclick="calculatePriorities()">Calculate priorities</button>
+      <div id="message"></div>
+    </div>
 
-      <!-- Dimension 12: Integrating Digital and AI Literacy for Learning -->
-      <tr>
-        <td>I discuss with students how to evaluate the credibility of digital sources and information.</td>
-        <td class="scale"><input type="radio" name="q34" value="1"></td>
-        <td class="scale"><input type="radio" name="q34" value="2"></td>
-        <td class="scale"><input type="radio" name="q34" value="3"></td>
-        <td class="scale"><input type="radio" name="q34" value="4"></td>
-        <td class="scale"><input type="radio" name="q34" value="5"></td>
-      </tr>
-      <tr>
-        <td>When AI tools are relevant, I explicitly address ethical and responsible use with students.</td>
-        <td class="scale"><input type="radio" name="q35" value="1"></td>
-        <td class="scale"><input type="radio" name="q35" value="2"></td>
-        <td class="scale"><input type="radio" name="q35" value="3"></td>
-        <td class="scale"><input type="radio" name="q35" value="4"></td>
-        <td class="scale"><input type="radio" name="q35" value="5"></td>
-      </tr>
-      <tr>
-        <td>I design at least some tasks that require students to use digital or AI tools critically rather than uncritically accepting outputs.</td>
-        <td class="scale"><input type="radio" name="q36" value="1"></td>
-        <td class="scale"><input type="radio" name="q36" value="2"></td>
-        <td class="scale"><input type="radio" name="q36" value="3"></td>
-        <td class="scale"><input type="radio" name="q36" value="4"></td>
-        <td class="scale"><input type="radio" name="q36" value="5"></td>
-      </tr>
-    </tbody>
-  </table>
+    <div id="results">
+      <h2>Your PPP dimension priorities</h2>
+      <p>Dimensions are listed from highest priority (lowest average rating) to lowest priority. You might choose one dimension as your main focus for this PPP cycle, or focus on a single area across the year.</p>
 
-  <button class="calculate-btn" id="calculateBtn">Calculate priorities</button>
+      <h3>Top three priorities</h3>
+      <div id="top-priorities"></div>
 
-  <div id="results"></div>
+      <h3>Full ranking</h3>
+      <table id="full-ranking-table">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th style="width: 130px;">Average rating</th>
+          </tr>
+        </thead>
+        <tbody id="full-ranking-body"></tbody>
+      </table>
 
-  <div class="need-help">
-    <p><em>Need help?</em> Contact the PPP Team – <a href="mailto:ppp@rmit.edu.au?subject=PPP%20Enquiry" target="_blank" rel="noopener">ppp@rmit.edu.au</a></p>
+      <h3 style="margin-top: 24px;">Copy-and-paste summary</h3>
+      <p>You can copy the text below into a Word document or your PPP planning form to keep a record of your current priorities.</p>
+      <p class="footer-note">
+        After you complete a PPP cycle, you can repeat this self-check and compare how your priorities have shifted.  
+        You might then choose a new dimension to focus on in a future cycle. Over time, building evidence across multiple dimensions will support a rich portfolio of practice and can align with future PPP dimension credentials.
+      </p>
+      <textarea id="summary-text" readonly></textarea>
+    </div>
   </div>
 
   <script>
-    const dimensionNames = [
-      "Fostering Active and Inclusive Engagement",
-      "Connecting to Learners\u2019 Prior Knowledge and Experience",
-      "Designing for Indigenous Perspectives, Diversity, Equity and Belonging",
-      "Developing Deep Conceptual Understanding and Critical Thinking",
-      "Making Learning Outcomes and Pathways Transparent",
-      "Bridging Theory, Practice and Interdisciplinarity",
-      "Harnessing Digital, Physical and Hybrid Environments",
-      "Structuring and Communicating Learning Clearly",
-      "Embedding Feedback Loops and Assessment for Learning",
-      "Cultivating Creativity, Wellbeing and Lifelong Learning",
-      "Developing Metacognitive and Self-Regulatory Learning",
-      "Integrating Digital and AI Literacy for Learning"
+    const TOTAL_QUESTIONS = 36;
+
+    const DIMENSIONS = [
+      { id: 1, name: "Fostering Active and Inclusive Engagement", questions: [1,2,3] },
+      { id: 2, name: "Connecting to Learners’ Prior Knowledge and Experience", questions: [4,5,6] },
+      { id: 3, name: "Designing for Indigenous Perspectives, Diversity, Equity, and Belonging", questions: [7,8,9] },
+      { id: 4, name: "Developing Deep Conceptual Understanding and Critical Thinking", questions: [10,11,12] },
+      { id: 5, name: "Making Learning Outcomes and Pathways Transparent", questions: [13,14,15] },
+      { id: 6, name: "Bridging Theory, Practice, and Interdisciplinarity", questions: [16,17,18] },
+      { id: 7, name: "Harnessing Digital, Physical, and Hybrid Environments", questions: [19,20,21] },
+      { id: 8, name: "Structuring and Communicating Learning Clearly", questions: [22,23,24] },
+      { id: 9, name: "Embedding Feedback Loops and Assessment for Learning", questions: [25,26,27] },
+      { id: 10, name: "Cultivating Creativity, Wellbeing, and Lifelong Learning", questions: [28,29,30] },
+      { id: 11, name: "Developing Metacognitive and Self-Regulatory Learning", questions: [31,32,33] },
+      { id: 12, name: "Integrating Digital and AI Literacy for Learning", questions: [34,35,36] }
     ];
 
-    const dimensionBlurbs = [
-      "Focus here if you want to design sessions where students are consistently active, included and engaged. In PPP you and your partner might experiment with participation structures that draw in quieter students and reduce reliance on lecture-style teaching.",
-      "This dimension may be useful if you want to build stronger bridges between students\u2019 lives and the curriculum. A PPP focus could involve trying new ways to surface prior knowledge, work with misconceptions and use students\u2019 experiences as starting points for learning.",
-      "Prioritising this area can help you design more inclusive, culturally responsive and accessible learning experiences. In PPP you might work with your partner to audit materials, redesign tasks using UDL principles and embed Indigenous perspectives where appropriate.",
-      "Focusing here supports a shift from content coverage to deeper thinking. Your PPP conversations could centre on designing tasks that require analysis and evaluation, and on questioning techniques that stretch students\u2019 reasoning.",
-      "This dimension is valuable if you want students to see clearly what they are working towards and how success is defined. PPP work might include reviewing how you communicate outcomes, refining rubrics and making links to future pathways more explicit.",
-      "Choose this if you want students to connect disciplinary knowledge with real-world practice and other fields. In PPP you could co-design activities that bring in authentic cases, industry links or interdisciplinary projects.",
-      "A focus here can help you get more from your physical and digital teaching spaces. PPP cycles might explore when different modes are most effective and how tools such as the LMS, breakout rooms or collaboration platforms can better support learning.",
-      "This dimension may suit you if you want your courses to feel clearer and more navigable for students. PPP discussions could focus on sequencing activities, reducing cognitive load and strengthening signposting within and across sessions.",
-      "Prioritising feedback and assessment for learning can enhance students\u2019 progress and confidence. In PPP you might trial new formative tasks, feedback approaches and follow-up activities that help students act on feedback.",
-      "Choose this dimension if you want to nurture curiosity, wellbeing and future-focused capabilities. Your PPP focus might include designing creative tasks, checking in on workload and highlighting how learning connects to life beyond the course.",
-      "This area is helpful if you want students to become more self-directed learners. PPP conversations could explore how you model strategies, use self- and peer-assessment, and give students structured opportunities to plan and review their learning.",
-      "A focus on digital and AI literacy supports students to use technology critically, ethically and effectively. In PPP you might co-design tasks that involve evaluating digital sources, discussing AI use and practising critical engagement with tool outputs."
-    ];
+    const INTERPRETATIONS = {
+      1: "Focus here if you want to design sessions where students are consistently active, included and engaged. In PPP you and your partner might experiment with participation structures that draw in quieter students and reduce reliance on lecture-style teaching.",
+      2: "This dimension may be useful if you want to build stronger bridges between students’ lives and the curriculum. In PPP you could try activities that surface prior knowledge, work with misconceptions and use students’ experiences as starting points for learning.",
+      3: "Prioritising this area can help you design more inclusive, culturally responsive and accessible learning experiences. In PPP you might work with your partner to audit materials, redesign tasks using UDL principles and embed Indigenous perspectives where appropriate.",
+      4: "Choose this dimension if you want to deepen conceptual understanding and critical thinking. In PPP you could redesign tasks to move beyond recall, incorporate richer questioning and focus feedback on reasoning and evidence.",
+      5: "This focus suits educators who want students to clearly understand what they are learning, why it matters and how success is defined. In PPP you and your partner might refine learning outcomes, rubrics and explanations of pathways.",
+      6: "This area is helpful if you want students to connect disciplinary ideas to real-world and cross-disciplinary contexts. A PPP project here could involve designing authentic cases, simulations or interdisciplinary activities.",
+      7: "Prioritise this dimension if you want to make more purposeful use of digital, physical and hybrid spaces. With your partner you could explore different mode combinations, collaborative tools and accessibility considerations.",
+      8: "Choose this focus if you would like your courses to feel clearer, better scaffolded and less cognitively overwhelming for students. In PPP you might streamline instructions, map learning sequences and align class activities with roadmaps.",
+      9: "This dimension may be valuable if you want feedback to drive learning rather than simply justify grades. A PPP focus could include designing formative tasks, building in time for students to act on feedback and trialling dialogic feedback approaches.",
+      10: "Focus here if you are interested in nurturing creativity, wellbeing and long-term learning habits. In PPP you might co-design creative tasks, integrate wellbeing check-ins or add reflective activities that help students make meaning beyond assessment.",
+      11: "This area is a good choice if you want students to become more self-aware and strategic in how they learn. During PPP you could trial explicit strategy instruction, goal-setting activities and self-/peer-assessment tools.",
+      12: "Prioritise this dimension if you want to grow students’ digital and AI literacy. In PPP you could design activities where students interrogate digital sources, evaluate AI outputs and discuss ethical, disciplined use of emerging tools."
+    };
 
-    // Each dimension has 3 questions, in order.
-    const NUM_QUESTIONS = 36;
-    const NUM_DIMENSIONS = 12;
+    function calculatePriorities() {
+      const messageEl = document.getElementById("message");
+      messageEl.textContent = "";
+      messageEl.className = "";
 
-    function calculateResults() {
-      const dimensionTotals = new Array(NUM_DIMENSIONS).fill(0);
-      const dimensionCounts = new Array(NUM_DIMENSIONS).fill(0);
+      // Clear any previous missing highlights
+      document.querySelectorAll(".statement-row").forEach(row => {
+        row.classList.remove("missing");
+      });
 
-      for (let i = 1; i <= NUM_QUESTIONS; i++) {
-        const radios = document.querySelectorAll('input[name="q' + i + '"]');
-        let value = null;
-        radios.forEach(r => {
-          if (r.checked) value = parseInt(r.value, 10);
-        });
+      const missing = [];
 
-        if (value === null) {
-          alert("Please provide a rating for every statement before calculating your priorities.");
-          if (radios.length > 0) {
-            radios[0].scrollIntoView({ behavior: "smooth", block: "center" });
-            radios[0].focus();
+      for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+        const radios = document.querySelectorAll(`input[name="q${i}"]`);
+        const checked = Array.from(radios).some(r => r.checked);
+        if (!checked) {
+          missing.push(i);
+          const row = document.querySelector(`tr[data-question="${i}"]`);
+          if (row) {
+            row.classList.add("missing");
           }
-          return;
         }
-
-        const dimIndex = Math.floor((i - 1) / 3); // 0–11
-        dimensionTotals[dimIndex] += value;
-        dimensionCounts[dimIndex] += 1;
       }
 
-      const dimensionAverages = [];
-      for (let d = 0; d < NUM_DIMENSIONS; d++) {
-        const avg = dimensionTotals[d] / dimensionCounts[d];
-        dimensionAverages.push({ index: d, avg: avg });
+      if (missing.length > 0) {
+        messageEl.textContent = "Please answer all statements before calculating. Missing items are highlighted below.";
+        messageEl.classList.add("error");
+        messageEl.scrollIntoView({ behavior: "smooth" });
+        return;
       }
 
-      // Sort from lowest average (highest priority) to highest average
-      dimensionAverages.sort((a, b) => a.avg - b.avg);
+      // All answered – proceed with calculations
+      const scores = DIMENSIONS.map(dim => {
+        const ratings = dim.questions.map(qNum => {
+          const selected = document.querySelector(`input[name="q${qNum}"]:checked`);
+          return Number(selected.value);
+        });
+        const avg = ratings.reduce((a, b) => a + b, 0) / ratings.length;
+        return { ...dim, average: avg };
+      });
 
-      const resultsDiv = document.getElementById("results");
-      let html = "";
+      // Sort by average rating ascending (lowest = highest priority)
+      scores.sort((a, b) => a.average - b.average);
 
-      // Top three priorities with interpretive text
-      html += "<h2>Your PPP dimension priorities</h2>";
-      html += "<p>Dimensions are listed from <strong>highest priority</strong> (lowest average rating) to lowest priority. You might choose one dimension as your main focus for this PPP cycle.</p>";
-
-      html += "<h3>Top three priorities</h3>";
-      html += "<ol>";
-      for (let i = 0; i < 3 && i < dimensionAverages.length; i++) {
-        const item = dimensionAverages[i];
-        const name = dimensionNames[item.index];
-        const avg = item.avg.toFixed(2);
-        const blurb = dimensionBlurbs[item.index];
-        html += "<li><strong>" + name + "</strong> (average rating: " + avg + ") – " + blurb + "</li>";
+      // Top three priorities
+      const topThreeContainer = document.getElementById("top-priorities");
+      let topHtml = "";
+      for (let i = 0; i < 3; i++) {
+        const dim = scores[i];
+        const interpretation = INTERPRETATIONS[dim.id] || "";
+        topHtml += `<p><strong>${i + 1}. ${dim.name}</strong> (average rating: ${dim.average.toFixed(2)}) – ${interpretation}</p>`;
       }
-      html += "</ol>";
+      topThreeContainer.innerHTML = topHtml;
 
       // Full ranking table
-      html += "<h3>Full ranking</h3>";
-      html += "<table><thead><tr><th style='text-align:left;'>Dimension</th><th>Average rating</th></tr></thead><tbody>";
-      dimensionAverages.forEach(item => {
-        html += "<tr><td>" + dimensionNames[item.index] + "</td><td style='text-align:center;'>" + item.avg.toFixed(2) + "</td></tr>";
+      const fullBody = document.getElementById("full-ranking-body");
+      fullBody.innerHTML = scores
+        .map(dim => `<tr><td>${dim.name}</td><td>${dim.average.toFixed(2)}</td></tr>`)
+        .join("");
+
+      // Copy-and-paste summary
+      let summaryText = "PPP dimension priorities (from highest to lowest priority, based on average rating):\n\n";
+      scores.forEach((dim, index) => {
+        summaryText += `${index + 1}. ${dim.name} – average rating ${dim.average.toFixed(2)}\n`;
       });
-      html += "</tbody></table>";
+      summaryText += "\nYou can paste this summary into your PPP planning form or a Word document to keep a record.\n";
+      summaryText += "After your PPP cycle, repeat this self-check and compare how your priorities have shifted. ";
+      summaryText += "You might then choose a new dimension to focus on in a later cycle, gradually building strengths across multiple dimensions.";
+      document.getElementById("summary-text").value = summaryText;
 
-      // Copy-and-paste summary shell
-      html += "<h3>Copy-and-paste summary</h3>";
-      html += "<p>Copy the text below into a Word document or your PPP planning form so you have a record of your self-check results. ";
-      html += "At the end of your PPP partnership, you can repeat this quiz and compare how your priorities have changed. ";
-      html += "You might then choose a new dimension to focus on in a future cycle, gradually building strengths across all twelve dimensions (and, eventually, the related digital badges).</p>";
-      html += "<textarea id='copySummary'></textarea>";
-
-      resultsDiv.innerHTML = html;
+      const resultsDiv = document.getElementById("results");
       resultsDiv.style.display = "block";
-
-      // Populate the copy-and-paste text
-      const primary = dimensionAverages[0];
-      let text = "PPP dimension priorities (from highest priority / lowest rating to lowest priority)\n\n";
-      dimensionAverages.forEach((item, idx) => {
-        text += (idx + 1) + ". " + dimensionNames[item.index] +
-                " – average rating " + item.avg.toFixed(2) + "\n";
-      });
-      text += "\nSuggested focus for this PPP cycle: " +
-              dimensionNames[primary.index] + "\n";
-      text += "\nAfter your PPP cycle, repeat this self-check and compare your new ratings. ";
-      text += "Which dimensions have strengthened? Which might you like to focus on next as you work towards a rich portfolio of practice across all twelve dimensions (and future PPP dimension badges)?\n";
-
-      const textarea = document.getElementById("copySummary");
-      if (textarea) {
-        textarea.value = text;
-      }
+      resultsDiv.scrollIntoView({ behavior: "smooth" });
     }
-
-    document.getElementById("calculateBtn").addEventListener("click", calculateResults);
   </script>
-
 </body>
 </html>
